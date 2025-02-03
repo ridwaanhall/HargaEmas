@@ -3,7 +3,7 @@ from .models import Purpose, PurposeDetail
 
 @admin.register(Purpose)
 class PurposeAdmin(admin.ModelAdmin):
-    list_display = ('name', 'description', 'notes')
+    list_display = ('name', 'description')
     search_fields = ('name',)
 
 @admin.register(PurposeDetail)
