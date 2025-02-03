@@ -1,11 +1,11 @@
 from django.db import models
+from purposeapp.models import Purpose, PurposeDetail
 from balanceapp.models import Balance
 
 class Income(models.Model):
     date = models.DateField()
-    purpose = models.CharField(max_length=100)
-    purpose_detail = models.TextField(blank=True)
-    notes = models.TextField(blank=True)
+    purpose = models.ForeignKey(Purpose, on_delete=models.CASCADE)
+    purpose_details = models.ManyToManyField(PurposeDetail, blank=True)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     related_party = models.CharField(max_length=100, blank=True)
     location = models.CharField(max_length=100, blank=True)
@@ -18,3 +18,7 @@ class Income(models.Model):
         balance.income += self.amount
         balance.balance += self.amount
         balance.save()
+
+    @property
+    def notes(self):
+        return self.purpose.notes
