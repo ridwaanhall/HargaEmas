@@ -12,4 +12,4 @@ class PurposeDetail(models.Model):
     purpose = models.ForeignKey(Purpose, on_delete=models.CASCADE, related_name='details')
 
     def __str__(self):
-        return self.name
+        return f'{self.purpose.name} - {self.name}'
