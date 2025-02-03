@@ -1,5 +1,7 @@
 from django.db import models
 from django.utils import timezone
+from locationapp.models import Location, RelatedParty
+from paymentapp.models import PaymentMethod, PaymentStatus
 from purposeapp.models import Purpose, PurposeDetail
 from balanceapp.models import Balance
 
@@ -9,10 +11,10 @@ class Expense(models.Model):
     purpose_details = models.ManyToManyField(PurposeDetail, blank=True)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     notes = models.TextField(blank=True)
-    related_party = models.CharField(max_length=100, blank=True)
-    location = models.CharField(max_length=100, blank=True)
-    payment_method = models.CharField(max_length=50, blank=True)
-    status = models.CharField(max_length=50, blank=True)
+    location = models.ForeignKey(Location, on_delete=models.SET_NULL, null=True, blank=True)  # Reference Location
+    related_parties = models.ManyToManyField(RelatedParty, blank=True)  # Updated to use ManyToManyField
+    payment_method = models.ForeignKey(PaymentMethod, on_delete=models.SET_NULL, null=True, blank=True)
+    payment_status = models.ForeignKey(PaymentStatus, on_delete=models.SET_NULL, null=True, blank=True)
 
     def save(self, *args, **kwargs):
         super(Expense, self).save(*args, **kwargs)

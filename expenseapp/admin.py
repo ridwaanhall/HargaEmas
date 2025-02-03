@@ -9,10 +9,27 @@ class ExpenseAdminForm(forms.ModelForm):
         fields = '__all__'
         widgets = {
             'purpose_details': FilteredSelectMultiple('Purpose Details', is_stacked=False),
+            'related_parties': FilteredSelectMultiple('Related Parties', is_stacked=False),
         }
 
 @admin.register(Expense)
 class ExpenseAdmin(admin.ModelAdmin):
     form = ExpenseAdminForm
-    list_display = ('date_time', 'purpose', 'amount', 'related_party', 'location')  # Updated field name
-    search_fields = ('purpose__name', 'related_party', 'location')
+    list_display = ('date_time', 'purpose', 'amount', 'location')
+    search_fields = ('purpose__name', 'location__location_name')
+
+    # Define fieldsets to create sections in the admin form
+    fieldsets = (
+        ('Common Information', {
+            'fields': ('date_time', 'purpose', 'purpose_details')
+        }),
+        ('Financial Information', {
+            'fields': ('amount', 'payment_method', 'payment_status')
+        }),
+        ('Location and Related Parties', {
+            'fields': ('location', 'related_parties')
+        }),
+        ('Additional Information', {
+            'fields': ('notes',)
+        }),
+    )
