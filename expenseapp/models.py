@@ -3,7 +3,7 @@ from django.utils import timezone
 from locationapp.models import Location, RelatedParty
 from paymentapp.models import PaymentMethod, PaymentStatus
 from purposeapp.models import Purpose, PurposeDetail
-from balanceapp.models import Balance
+from django.apps import apps
 
 class Expense(models.Model):
     date_time = models.DateTimeField(default=timezone.now)
@@ -11,14 +11,26 @@ class Expense(models.Model):
     purpose_details = models.ManyToManyField(PurposeDetail, blank=True)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     notes = models.TextField(blank=True)
-    location = models.ForeignKey(Location, on_delete=models.SET_NULL, null=True, blank=True)  # Reference Location
-    related_parties = models.ManyToManyField(RelatedParty, blank=True)  # Updated to use ManyToManyField
+    location = models.ForeignKey(Location, on_delete=models.SET_NULL, null=True, blank=True)
+    related_parties = models.ManyToManyField(RelatedParty, blank=True)
     payment_method = models.ForeignKey(PaymentMethod, on_delete=models.SET_NULL, null=True, blank=True)
     payment_status = models.ForeignKey(PaymentStatus, on_delete=models.SET_NULL, null=True, blank=True)
 
     def save(self, *args, **kwargs):
         super(Expense, self).save(*args, **kwargs)
+
+        Balance = apps.get_model('balanceapp', 'Balance')
+
+        previous_balance = Balance.objects.order_by("-date_time").first()
+        
         balance, created = Balance.objects.get_or_create(date_time=self.date_time)
-        balance.expense += self.amount
-        balance.balance -= self.amount
+
+        if created:
+            starting_balance = previous_balance.balance if previous_balance else 0
+            balance.expense = self.amount
+            balance.balance = starting_balance - self.amount
+        else:
+            balance.expense = models.F("expense") + self.amount
+            balance.balance = models.F("balance") - self.amount
+
         balance.save()
