@@ -5,6 +5,3 @@ class Balance(models.Model):
     balance = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     income = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     expense = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    kertas = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    receh = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    ewallet = models.DecimalField(max_digits=10, decimal_places=2, default=0)
