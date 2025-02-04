@@ -31,8 +31,7 @@ jobs:
         echo "PGDATABASE=${{ secrets.PGDATABASE }}" >> $GITHUB_ENV
         echo "PGPASSWORD=${{ secrets.PGPASSWORD }}" >> $GITHUB_ENV
         echo "PGUSER=${{ secrets.PGUSER }}" >> $GITHUB_ENV
-        echo "RAILWAY_TCP_PROXY_DOMAIN=${{ secrets.RAILWAY_TCP_PROXY_DOMAIN }}" >> $GITHUB_ENV
-        echo "RAILWAY_TCP_PROXY_PORT=${{ secrets.RAILWAY_TCP_PROXY_PORT }}" >> $GITHUB_ENV
+        echo "PGHOST=${{ secrets.PGHOST }}" >> $GITHUB_ENV
     - name: Run Tests
       run: |
         python manage.py test
@@ -41,5 +40,4 @@ jobs:
         PGDATABASE: ${{ secrets.PGDATABASE }}
         PGPASSWORD: ${{ secrets.PGPASSWORD }}
         PGUSER: ${{ secrets.PGUSER }}
-        RAILWAY_TCP_PROXY_DOMAIN: ${{ secrets.RAILWAY_TCP_PROXY_DOMAIN }}
-        RAILWAY_TCP_PROXY_PORT: ${{ secrets.RAILWAY_TCP_PROXY_PORT }}
+        PGHOST: ${{ secrets.PGHOST }}
