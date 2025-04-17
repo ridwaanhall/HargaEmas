@@ -27,6 +27,7 @@ class DjangoProjectView(View):
                 'joke_setup': joke_setup,
                 'joke_delivery': joke_delivery
             }
-            return render(request, 'django-project.html', context)
+            # return render(request, 'django-project.html', context)
+            return render(request, 'finance.html')
         except Exception as e:
             return HttpResponse(f"An error occurred: {e}", status=500)
