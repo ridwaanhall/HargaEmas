@@ -1,9 +1,32 @@
 <!DOCTYPE html>
-<html lang="en" class="light">
+<html lang="id" class="light"> {# Changed lang to "id" #}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Gold Price Tracker{% endblock %}</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="{% block meta_description %}Lacak harga emas terbaru dalam Rupiah Indonesia (IDR) dengan grafik data historis dan analisis.{% endblock %}"> {# Updated default description #}
+    <meta name="keywords" content="{% block meta_keywords %}harga emas, pelacak emas, harga komoditas, logam mulia, keuangan, investasi, emas IDR, Rupiah{% endblock %}"> {# Updated default keywords #}
+    <link rel="canonical" href="{% block canonical_url %}{{ request.build_absolute_uri }}{% endblock %}">
+
+    <title>{% block title %}Pelacak Harga Emas (IDR){% endblock %}</title> {# Updated default title #}
+
+    <!-- Open Graph Meta Tags (for social media sharing) -->
+    <meta property="og:title" content="{% block og_title %}{% block title_og %}Pelacak Harga Emas (IDR){% endblock %}{% endblock %}"> {# Updated default OG title #}
+    <meta property="og:description" content="{% block og_description %}{% block meta_description_og %}Lacak harga emas terbaru dalam Rupiah Indonesia (IDR) dengan grafik data historis.{% endblock %}{% endblock %}"> {# Updated default OG description #}
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{% block og_url %}{{ request.build_absolute_uri }}{% endblock %}">
+    <meta property="og:image" content="{% block og_image %}{# Add URL to a default preview image here #}{% endblock %}">
+    <meta property="og:site_name" content="Pelacak Harga Emas"> {# Updated site name #}
+    <meta property="og:locale" content="id_ID"> {# Added locale #}
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{% block twitter_title %}{% block title_twitter %}Pelacak Harga Emas (IDR){% endblock %}{% endblock %}"> {# Updated default Twitter title #}
+    <meta name="twitter:description" content="{% block twitter_description %}{% block meta_description_twitter %}Lacak harga emas terbaru dalam Rupiah Indonesia (IDR) dengan grafik data historis.{% endblock %}{% endblock %}"> {# Updated default Twitter description #}
+    <meta name="twitter:image" content="{% block twitter_image %}{# Add URL to a default preview image here #}{% endblock %}">
+    {# <meta name="twitter:site" content="@YourTwitterHandle"> #}
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
@@ -37,26 +60,42 @@
             --text-primary: #111827;
         }
     </style>
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Pelacak Harga Emas Indonesia", {# Updated name #}
+      "url": "{{ request.scheme }}://{{ request.get_host }}",
+      "inLanguage": "id-ID", {# Added language #}
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "{{ request.scheme }}://{{ request.get_host }}/search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
     {% block extra_head %}{% endblock %}
 </head>
 <body class="bg-white dark:bg-gray-900 text-gray-800 dark:text-white transition-colors duration-300">
     <header class="bg-white shadow dark:bg-gray-800 dark:border-gray-700">
         <div class="container mx-auto px-4 py-6 flex justify-between items-center">
-            <h1 class="text-2xl font-bold">Gold Price Tracker</h1>
-            <button id="theme-toggle" type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5">
-                <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
-                <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+            <h1 class="text-2xl font-bold">{% block header_title %}Pelacak Harga Emas{% endblock %}</h1> {# Updated default header #}
+            <button id="theme-toggle" type="button" aria-label="Toggle dark mode" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5">
+                <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
             </button>
         </div>
     </header>
-    
+
     <main class="container mx-auto px-4 py-8">
         {% block content %}{% endblock %}
     </main>
-    
+
     <footer class="bg-white shadow dark:bg-gray-800 mt-8 py-4">
         <div class="container mx-auto px-4 text-center">
-            <p class="text-gray-600 dark:text-gray-300">&copy; {% now "Y" %} Gold Price Tracker</p>
+            <p class="text-gray-600 dark:text-gray-300">&copy; {% now "Y" %} Pelacak Harga Emas</p> {# Updated footer text #}
         </div>
     </footer>
 
@@ -104,7 +143,7 @@
             }
         });
     </script>
-    
+
     {% block extra_scripts %}{% endblock %}
 </body>
 </html>
