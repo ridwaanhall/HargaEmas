@@ -771,96 +771,83 @@
         fetch(url)
             .then(response => response.json())
             .then(data => {
-                if (data.responseCode === "2000000100") {
-                    // Get the full price list from the response
-                    const priceList = data.data.priceList;
-                    
-                    if (!priceList || priceList.length === 0) {
-                        // Handle no data case
-                        goldChart.data.labels = [];
-                        goldChart.data.datasets[0].data = [];
-                        goldChart.data.datasets[1].data = [];
-                        goldChart.options.plugins.title.text = 'No data available for selected range';
-                        goldChart.update();
-                        updateLatestPriceIndicators(null); // Clear indicators
-                        updateAnalyticsDisplay(null); // Clear analytics
-                        return;
-                    }
-
-                    // Process data based on interval type (uses raw prices now)
-                    const processedData = processDataByIntervalType(priceList, intervalType);
-                    
-                    // Update chart with processed data (raw prices)
-                    goldChart.data.labels = processedData.dates;
-                    goldChart.data.datasets[0].data = processedData.sellPrices;
-                    goldChart.data.datasets[1].data = processedData.buyPrices;
-                    
-                    // Calculate average price for annotation (using raw sell prices)
-                    const averageSellPrice = processedData.sellPrices.reduce((a, b) => a + b, 0) / processedData.sellPrices.length;
-                    
-                    // Update annotation for average line
-                    if (goldChart.options.plugins.annotation && goldChart.options.plugins.annotation.annotations) {
-                        goldChart.options.plugins.annotation.annotations.line1.value = averageSellPrice;
-                        // Format average price for the label
-                        const avgFormatted = Math.round(averageSellPrice).toLocaleString('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0, maximumFractionDigits: 0 }).replace('Rp', '').trim();
-                        goldChart.options.plugins.annotation.annotations.line1.label.content = `Rata-rata: ${avgFormatted}`; // Updated label
-                        goldChart.options.plugins.annotation.annotations.line1.label.enabled = !isNaN(averageSellPrice);
-                    }
-
-                    // Update chart title based on interval type and range
-                    let titlePrefix = "Harian"; // Default to Daily
-                    if (intervalType === 'weekly') titlePrefix = "Rata-rata Mingguan";
-                    if (intervalType === 'monthly') titlePrefix = "Rata-rata Bulanan";
-                    if (intervalType === 'yearly') titlePrefix = "Rata-rata Tahunan";
-
-                    let dateRangeSuffix = "";
-                    if (processedData.dates.length > 0) {
-                         // Use Luxon for consistent date range formatting if available
-                         const firstDateStr = processedData.dates[0];
-                         const lastDateStr = processedData.dates[processedData.dates.length - 1];
-                         dateRangeSuffix = ` - ${firstDateStr} hingga ${lastDateStr}`; // Updated conjunction
-                    }
-
-                    goldChart.options.plugins.title.text = `${titlePrefix} Harga Emas (0.01g)${dateRangeSuffix}`; // Updated title structure
-                    goldChart.options.plugins.title.display = true;
-
-                    // Update the chart
-                    goldChart.update();
-                    
-                    // Update latest price indicators
-                    updateLatestPriceIndicators(processedData);
-
-                    // Update financial analytics display
-                    updateAnalyticsDisplay(processedData);
-                } else {
-                    console.error('Error fetching gold data:', data.responseDesc);
-                    alert('Gagal memuat data harga emas. Silakan coba lagi nanti.'); // Updated message
-                     // Clear chart and indicators on error
-                    goldChart.data.labels = [];
-                    goldChart.data.datasets[0].data = [];
-                    goldChart.data.datasets[1].data = [];
-                    goldChart.options.plugins.title.text = 'Gagal memuat data'; // Updated message
-                    goldChart.update();
-                    updateLatestPriceIndicators(null);
-                    updateAnalyticsDisplay(null); // Clear analytics on error
-                }
-            })
-            .catch(error => {
-                console.error('Error fetching gold data:', error);
-                alert('Gagal memuat data harga emas. Silakan coba lagi nanti.'); // Updated message
-                 // Clear chart and indicators on fetch error
+            // Extract priceList from the new response format
+            const priceList = data.priceList || [];
+            
+            if (!priceList || priceList.length === 0) {
+                // Handle no data case
                 goldChart.data.labels = [];
                 goldChart.data.datasets[0].data = [];
                 goldChart.data.datasets[1].data = [];
-                goldChart.options.plugins.title.text = 'Gagal memuat data'; // Updated message
+                goldChart.options.plugins.title.text = 'No data available for selected range';
                 goldChart.update();
-                updateLatestPriceIndicators(null);
-                updateAnalyticsDisplay(null); // Clear analytics on error
+                updateLatestPriceIndicators(null); // Clear indicators
+                updateAnalyticsDisplay(null); // Clear analytics
+                return;
+            }
+
+            // Process data based on interval type (uses raw prices now)
+            const processedData = processDataByIntervalType(priceList, intervalType);
+            
+            // Update chart with processed data (raw prices)
+            goldChart.data.labels = processedData.dates;
+            goldChart.data.datasets[0].data = processedData.sellPrices;
+            goldChart.data.datasets[1].data = processedData.buyPrices;
+            
+            // Calculate average price for annotation (using raw sell prices)
+            const averageSellPrice = processedData.sellPrices.reduce((a, b) => a + b, 0) / processedData.sellPrices.length;
+            
+            // Update annotation for average line
+            if (goldChart.options.plugins.annotation && goldChart.options.plugins.annotation.annotations) {
+                goldChart.options.plugins.annotation.annotations.line1.value = averageSellPrice;
+                // Format average price for the label
+                const avgFormatted = Math.round(averageSellPrice).toLocaleString('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0, maximumFractionDigits: 0 }).replace('Rp', '').trim();
+                goldChart.options.plugins.annotation.annotations.line1.label.content = `Rata-rata: ${avgFormatted}`; // Updated label
+                goldChart.options.plugins.annotation.annotations.line1.label.enabled = !isNaN(averageSellPrice);
+            }
+
+            // Update chart title based on interval type and range
+            let titlePrefix = "Harian"; // Default to Daily
+            if (intervalType === 'weekly') titlePrefix = "Rata-rata Mingguan";
+            if (intervalType === 'monthly') titlePrefix = "Rata-rata Bulanan";
+            if (intervalType === 'yearly') titlePrefix = "Rata-rata Tahunan";
+
+            let dateRangeSuffix = "";
+            if (processedData.dates.length > 0) {
+                 // Use Luxon for consistent date range formatting if available
+                 const firstDateStr = processedData.dates[0];
+                 const lastDateStr = processedData.dates[processedData.dates.length - 1];
+                 dateRangeSuffix = ` - ${firstDateStr} hingga ${lastDateStr}`; // Updated conjunction
+            }
+
+            goldChart.options.plugins.title.text = `${titlePrefix} Harga Emas (0.01g)${dateRangeSuffix}`; // Updated title structure
+            goldChart.options.plugins.title.display = true;
+
+            // Update the chart
+            goldChart.update();
+            
+            // Update latest price indicators
+            updateLatestPriceIndicators(processedData);
+
+            // Update financial analytics display
+            updateAnalyticsDisplay(processedData);
+            })
+            .catch(error => {
+            console.error('Error fetching gold data:', error);
+            alert('Gagal memuat data harga emas. Silakan coba lagi nanti.'); // Updated message
+             // Clear chart and indicators on fetch error
+            goldChart.data.labels = [];
+            goldChart.data.datasets[0].data = [];
+            goldChart.data.datasets[1].data = [];
+            goldChart.options.plugins.title.text = 'Gagal memuat data'; // Updated message
+            goldChart.update();
+            updateLatestPriceIndicators(null);
+            updateAnalyticsDisplay(null); // Clear analytics on error
             })
             .finally(() => {
-                document.getElementById('loading').classList.add('hidden');
+            document.getElementById('loading').classList.add('hidden');
             });
-    }
+        }
     
     // Helper function to format date (kept for potential fallback, but Luxon is preferred)
     function formatDate(dateStr, includeYear = true) {
