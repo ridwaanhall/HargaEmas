@@ -126,21 +126,25 @@
         <!-- Controls Section -->
         <div class="mb-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
             <div class="mb-3">
-                <h3 class="text-sm font-semibold text-gray-600 dark:text-gray-400 mb-2">Rentang Waktu:</h3> {# Updated label #}
+                <h3 class="text-sm font-semibold text-gray-600 dark:text-gray-400 mb-2">Rentang Waktu (Terakhir):</h3> {# Updated label #}
                 <div class="flex flex-wrap gap-2">
-                    {# Use aria-label for better accessibility/SEO on buttons if needed, though text content is clear #}
-                    <button class="interval-btn px-3 py-1.5 rounded text-sm font-medium bg-gray-200 dark:bg-gray-600 hover:bg-primary-500 hover:text-white dark:text-gray-300 dark:hover:bg-primary-600 transition-colors" data-interval="7" aria-label="Lihat data 7 hari">7H</button> {# Updated text, added aria-label #}
-                    <button class="interval-btn px-3 py-1.5 rounded text-sm font-medium bg-primary-500 text-white dark:bg-primary-600 hover:bg-primary-600 dark:hover:bg-primary-700 transition-colors" data-interval="30" aria-label="Lihat data 30 hari">30H</button> {# Updated text, added aria-label #}
-                    <button class="interval-btn px-3 py-1.5 rounded text-sm font-medium bg-gray-200 dark:bg-gray-600 hover:bg-primary-500 hover:text-white dark:text-gray-300 dark:hover:bg-primary-600 transition-colors" data-interval="90" aria-label="Lihat data 3 bulan">3B</button> {# Updated text, added aria-label #}
-                    <button class="interval-btn px-3 py-1.5 rounded text-sm font-medium bg-gray-200 dark:bg-gray-600 hover:bg-primary-500 hover:text-white dark:text-gray-300 dark:hover:bg-primary-600 transition-colors" data-interval="180" aria-label="Lihat data 6 bulan">6B</button> {# Updated text, added aria-label #}
-                    <button class="interval-btn px-3 py-1.5 rounded text-sm font-medium bg-gray-200 dark:bg-gray-600 hover:bg-primary-500 hover:text-white dark:text-gray-300 dark:hover:bg-primary-600 transition-colors" data-interval="365" aria-label="Lihat data 1 tahun">1T</button> {# Updated text, added aria-label #}
-                    <button class="interval-btn px-3 py-1.5 rounded text-sm font-medium bg-gray-200 dark:bg-gray-600 hover:bg-primary-500 hover:text-white dark:text-gray-300 dark:hover:bg-primary-600 transition-colors" data-interval="730" aria-label="Lihat data 2 tahun">2T</button> {# Updated text, added aria-label #}
-                    <button class="interval-btn px-3 py-1.5 rounded text-sm font-medium bg-gray-200 dark:bg-gray-600 hover:bg-primary-500 hover:text-white dark:text-gray-300 dark:hover:bg-primary-600 transition-colors" data-interval="1095" aria-label="Lihat data 3 tahun">3T</button> {# Updated text, added aria-label #}
-                    <button class="interval-btn px-3 py-1.5 rounded text-sm font-medium bg-gray-200 dark:bg-gray-600 hover:bg-primary-500 hover:text-white dark:text-gray-300 dark:hover:bg-primary-600 transition-colors" data-interval="1460" aria-label="Lihat data 4 tahun">4T</button> {# Updated text, added aria-label #}
-                    <button class="interval-btn px-3 py-1.5 rounded text-sm font-medium bg-gray-200 dark:bg-gray-600 hover:bg-primary-500 hover:text-white dark:text-gray-300 dark:hover:bg-primary-600 transition-colors" data-interval="1825" aria-label="Lihat data 5 tahun">5T</button> {# Updated text, added aria-label #}
-                    <button class="interval-btn px-3 py-1.5 rounded text-sm font-medium bg-gray-200 dark:bg-gray-600 hover:bg-primary-500 hover:text-white dark:text-gray-300 dark:hover:bg-primary-600 transition-colors" data-interval="3650" aria-label="Lihat data 10 tahun">10T</button> {# Updated text, added aria-label #}
-                    <button class="interval-btn px-3 py-1.5 rounded text-sm font-medium bg-gray-200 dark:bg-gray-600 hover:bg-primary-500 hover:text-white dark:text-gray-300 dark:hover:bg-primary-600 transition-colors" data-interval="5475" aria-label="Lihat data 15 tahun">15T</button> {# Updated text, added aria-label #}
-                    <button class="interval-btn px-3 py-1.5 rounded text-sm font-medium bg-gray-200 dark:bg-gray-600 hover:bg-primary-500 hover:text-white dark:text-gray-300 dark:hover:bg-primary-600 transition-colors" data-interval="7300" aria-label="Lihat data 20 tahun">20T</button> {# Updated text, added aria-label #}
+                    {# Use data-period now #}
+                    <button class="interval-btn px-3 py-1.5 rounded text-sm font-medium bg-gray-200 dark:bg-gray-600 hover:bg-primary-500 hover:text-white dark:text-gray-300 dark:hover:bg-primary-600 transition-colors" data-period="7d" aria-label="Lihat data 7 hari terakhir">7 Hari</button>
+                    <button class="interval-btn px-3 py-1.5 rounded text-sm font-medium bg-primary-500 text-white dark:bg-primary-600 hover:bg-primary-600 dark:hover:bg-primary-700 transition-colors" data-period="1m" aria-label="Lihat data 1 bulan terakhir">1 Bulan</button>
+                    <button class="interval-btn px-3 py-1.5 rounded text-sm font-medium bg-gray-200 dark:bg-gray-600 hover:bg-primary-500 hover:text-white dark:text-gray-300 dark:hover:bg-primary-600 transition-colors" data-period="3m" aria-label="Lihat data 3 bulan terakhir">3 Bulan</button>
+                    <button class="interval-btn px-3 py-1.5 rounded text-sm font-medium bg-gray-200 dark:bg-gray-600 hover:bg-primary-500 hover:text-white dark:text-gray-300 dark:hover:bg-primary-600 transition-colors" data-period="6m" aria-label="Lihat data 6 bulan terakhir">6 Bulan</button>
+                    <button class="interval-btn px-3 py-1.5 rounded text-sm font-medium bg-gray-200 dark:bg-gray-600 hover:bg-primary-500 hover:text-white dark:text-gray-300 dark:hover:bg-primary-600 transition-colors" data-period="1y" aria-label="Lihat data 1 tahun terakhir">1 Tahun</button>
+                    <button class="interval-btn px-3 py-1.5 rounded text-sm font-medium bg-gray-200 dark:bg-gray-600 hover:bg-primary-500 hover:text-white dark:text-gray-300 dark:hover:bg-primary-600 transition-colors" data-period="2y" aria-label="Lihat data 2 tahun terakhir">2 Tahun</button>
+                    <button class="interval-btn px-3 py-1.5 rounded text-sm font-medium bg-gray-200 dark:bg-gray-600 hover:bg-primary-500 hover:text-white dark:text-gray-300 dark:hover:bg-primary-600 transition-colors" data-period="3y" aria-label="Lihat data 3 tahun terakhir">3 Tahun</button>
+                    <button class="interval-btn px-3 py-1.5 rounded text-sm font-medium bg-gray-200 dark:bg-gray-600 hover:bg-primary-500 hover:text-white dark:text-gray-300 dark:hover:bg-primary-600 transition-colors" data-period="4y" aria-label="Lihat data 4 tahun terakhir">4 Tahun</button>
+                    <button class="interval-btn px-3 py-1.5 rounded text-sm font-medium bg-gray-200 dark:bg-gray-600 hover:bg-primary-500 hover:text-white dark:text-gray-300 dark:hover:bg-primary-600 transition-colors" data-period="5y" aria-label="Lihat data 5 tahun terakhir">5 Tahun</button>
+                    <button class="interval-btn px-3 py-1.5 rounded text-sm font-medium bg-gray-200 dark:bg-gray-600 hover:bg-primary-500 hover:text-white dark:text-gray-300 dark:hover:bg-primary-600 transition-colors" data-period="6y" aria-label="Lihat data 6 tahun terakhir">6 Tahun</button>
+                    <button class="interval-btn px-3 py-1.5 rounded text-sm font-medium bg-gray-200 dark:bg-gray-600 hover:bg-primary-500 hover:text-white dark:text-gray-300 dark:hover:bg-primary-600 transition-colors" data-period="7y" aria-label="Lihat data 7 tahun terakhir">7 Tahun</button>
+                    <button class="interval-btn px-3 py-1.5 rounded text-sm font-medium bg-gray-200 dark:bg-gray-600 hover:bg-primary-500 hover:text-white dark:text-gray-300 dark:hover:bg-primary-600 transition-colors" data-period="8y" aria-label="Lihat data 8 tahun terakhir">8 Tahun</button>
+                    <button class="interval-btn px-3 py-1.5 rounded text-sm font-medium bg-gray-200 dark:bg-gray-600 hover:bg-primary-500 hover:text-white dark:text-gray-300 dark:hover:bg-primary-600 transition-colors" data-period="9y" aria-label="Lihat data 9 tahun terakhir">9 Tahun</button>
+                    <button class="interval-btn px-3 py-1.5 rounded text-sm font-medium bg-gray-200 dark:bg-gray-600 hover:bg-primary-500 hover:text-white dark:text-gray-300 dark:hover:bg-primary-600 transition-colors" data-period="10y" aria-label="Lihat data 10 tahun terakhir">10 Tahun</button>
+                    <button class="interval-btn px-3 py-1.5 rounded text-sm font-medium bg-gray-200 dark:bg-gray-600 hover:bg-primary-500 hover:text-white dark:text-gray-300 dark:hover:bg-primary-600 transition-colors" data-period="15y" aria-label="Lihat data 15 tahun terakhir">15 Tahun</button>
+                    <button class="interval-btn px-3 py-1.5 rounded text-sm font-medium bg-gray-200 dark:bg-gray-600 hover:bg-primary-500 hover:text-white dark:text-gray-300 dark:hover:bg-primary-600 transition-colors" data-period="20y" aria-label="Lihat data 20 tahun terakhir">20 Tahun</button>
                 </div>
             </div>
             <div>
@@ -212,7 +216,7 @@
 {% block extra_scripts %}
 <script>
     let goldChart = null;
-    let currentInterval = 30; // Default interval
+    let currentPeriod = '1m'; // Default period (e.g., 1 month)
     let currentIntervalType = 'daily';
     const baseUrl = "{% url 'gold_price_data' %}";
     let previousData = null;
@@ -750,14 +754,14 @@
     }
     
     // Function to fetch gold price data and update the chart
-    function fetchGoldData(interval, intervalType) {
+    function fetchGoldData(period, intervalType) { // Changed 'interval' parameter to 'period'
         document.getElementById('loading').classList.remove('hidden');
-        
+
         // Construct URL with appropriate parameters
         let url = baseUrl;
         const params = new URLSearchParams();
-        if (interval) {
-            params.append('interval', interval);
+        if (period) {
+            params.append('period', period); // Send 'period' instead of 'interval'
         }
         // Only add params if there are any
         if ([...params].length > 0) {
@@ -765,21 +769,21 @@
         }
 
         // Store current fetch parameters
-        currentInterval = interval; // Store the current interval
+        currentPeriod = period; // Store the current period
         currentIntervalType = intervalType;
 
         fetch(url)
             .then(response => response.json())
             .then(data => {
-            // Extract priceList from the new response format
+            // Extract priceList from the response format (assuming backend returns {"priceList": [...]})
             const priceList = data.priceList || [];
-            
+
             if (!priceList || priceList.length === 0) {
                 // Handle no data case
                 goldChart.data.labels = [];
                 goldChart.data.datasets[0].data = [];
                 goldChart.data.datasets[1].data = [];
-                goldChart.options.plugins.title.text = 'No data available for selected range';
+                goldChart.options.plugins.title.text = 'Tidak ada data tersedia untuk rentang waktu yang dipilih'; // Updated message
                 goldChart.update();
                 updateLatestPriceIndicators(null); // Clear indicators
                 updateAnalyticsDisplay(null); // Clear analytics
@@ -788,15 +792,15 @@
 
             // Process data based on interval type (uses raw prices now)
             const processedData = processDataByIntervalType(priceList, intervalType);
-            
+
             // Update chart with processed data (raw prices)
             goldChart.data.labels = processedData.dates;
             goldChart.data.datasets[0].data = processedData.sellPrices;
             goldChart.data.datasets[1].data = processedData.buyPrices;
-            
+
             // Calculate average price for annotation (using raw sell prices)
             const averageSellPrice = processedData.sellPrices.reduce((a, b) => a + b, 0) / processedData.sellPrices.length;
-            
+
             // Update annotation for average line
             if (goldChart.options.plugins.annotation && goldChart.options.plugins.annotation.annotations) {
                 goldChart.options.plugins.annotation.annotations.line1.value = averageSellPrice;
@@ -825,7 +829,7 @@
 
             // Update the chart
             goldChart.update();
-            
+
             // Update latest price indicators
             updateLatestPriceIndicators(processedData);
 
@@ -848,7 +852,7 @@
             document.getElementById('loading').classList.add('hidden');
             });
         }
-    
+
     // Helper function to format date (kept for potential fallback, but Luxon is preferred)
     function formatDate(dateStr, includeYear = true) {
         // Consider adding specific formatting for 'yearly' if needed, though current logic might suffice.
@@ -889,9 +893,9 @@
             }
         };
 
-        // Fetch initial data (using default interval)
-        fetchGoldData(currentInterval, currentIntervalType);
-        
+        // Fetch initial data (using default period)
+        fetchGoldData(currentPeriod, currentIntervalType);
+
         // Set up interval button click handlers
         const intervalButtons = document.querySelectorAll('.interval-btn');
 
@@ -902,13 +906,13 @@
                     btn.classList.remove('bg-primary-500', 'text-white', 'dark:bg-primary-600');
                     btn.classList.add('bg-gray-200', 'dark:bg-gray-700', 'dark:text-gray-300');
                 });
-                
+
                 this.classList.remove('bg-gray-200', 'dark:bg-gray-700', 'dark:text-gray-300');
                 this.classList.add('bg-primary-500', 'text-white', 'dark:bg-primary-600');
-                
-                // Get interval and fetch data
-                const interval = this.dataset.interval;
-                fetchGoldData(interval, currentIntervalType); // Pass interval, null for dates
+
+                // Get period and fetch data
+                const period = this.dataset.period; // Use dataset.period
+                fetchGoldData(period, currentIntervalType); // Pass period
             });
         });
 
@@ -921,13 +925,13 @@
                     btn.classList.remove('bg-primary-500', 'text-white', 'dark:bg-primary-600');
                     btn.classList.add('bg-gray-200', 'dark:bg-gray-700', 'dark:text-gray-300');
                 });
-                
+
                 this.classList.remove('bg-gray-200', 'dark:bg-gray-700', 'dark:text-gray-300');
                 this.classList.add('bg-primary-500', 'text-white', 'dark:bg-primary-600');
-                
-                // Get interval type and fetch data using current range/interval settings
+
+                // Get interval type and fetch data using current period settings
                 const type = this.dataset.type;
-                fetchGoldData(currentInterval, type);
+                fetchGoldData(currentPeriod, type); // Pass currentPeriod
             });
         });
 
