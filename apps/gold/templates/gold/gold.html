@@ -1,0 +1,816 @@
+{% extends "base.html" %}
+
+{% block title %}Gold Price Tracker (per 0.01g){% endblock %}
+
+{% block extra_head %}
+<!-- Add Chart.js Annotations plugin -->
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@1.0.2"></script>
+<!-- Add Luxon for better date handling -->
+<script src="https://cdn.jsdelivr.net/npm/luxon@2.3.1/build/global/luxon.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-luxon@1.0.0"></script>
+{% endblock %}
+
+{% block content %}
+<div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-8">
+    <div class="mb-6">
+        <h2 class="text-2xl font-bold mb-4 dark:text-white text-center md:text-left">Gold Price (IDR per 0.01 gram)</h2>
+
+        <!-- Controls Section -->
+        <div class="mb-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+            <div class="mb-3">
+                <h3 class="text-sm font-semibold text-gray-600 dark:text-gray-400 mb-2">Time Range:</h3>
+                <div class="flex flex-wrap gap-2">
+                    <button class="interval-btn px-3 py-1.5 rounded text-sm font-medium bg-gray-200 dark:bg-gray-600 hover:bg-primary-500 hover:text-white dark:text-gray-300 dark:hover:bg-primary-600 transition-colors" data-interval="7">7D</button>
+                    <button class="interval-btn px-3 py-1.5 rounded text-sm font-medium bg-primary-500 text-white dark:bg-primary-600 hover:bg-primary-600 dark:hover:bg-primary-700 transition-colors" data-interval="30">30D</button>
+                    <button class="interval-btn px-3 py-1.5 rounded text-sm font-medium bg-gray-200 dark:bg-gray-600 hover:bg-primary-500 hover:text-white dark:text-gray-300 dark:hover:bg-primary-600 transition-colors" data-interval="90">3M</button>
+                    <button class="interval-btn px-3 py-1.5 rounded text-sm font-medium bg-gray-200 dark:bg-gray-600 hover:bg-primary-500 hover:text-white dark:text-gray-300 dark:hover:bg-primary-600 transition-colors" data-interval="180">6M</button>
+                    <button class="interval-btn px-3 py-1.5 rounded text-sm font-medium bg-gray-200 dark:bg-gray-600 hover:bg-primary-500 hover:text-white dark:text-gray-300 dark:hover:bg-primary-600 transition-colors" data-interval="365">1Y</button>
+                    <button class="interval-btn px-3 py-1.5 rounded text-sm font-medium bg-gray-200 dark:bg-gray-600 hover:bg-primary-500 hover:text-white dark:text-gray-300 dark:hover:bg-primary-600 transition-colors" data-interval="730">2Y</button>
+                    <button class="interval-btn px-3 py-1.5 rounded text-sm font-medium bg-gray-200 dark:bg-gray-600 hover:bg-primary-500 hover:text-white dark:text-gray-300 dark:hover:bg-primary-600 transition-colors" data-interval="1095">3Y</button>
+                    <button class="interval-btn px-3 py-1.5 rounded text-sm font-medium bg-gray-200 dark:bg-gray-600 hover:bg-primary-500 hover:text-white dark:text-gray-300 dark:hover:bg-primary-600 transition-colors" data-interval="1460">4Y</button>
+                    <button class="interval-btn px-3 py-1.5 rounded text-sm font-medium bg-gray-200 dark:bg-gray-600 hover:bg-primary-500 hover:text-white dark:text-gray-300 dark:hover:bg-primary-600 transition-colors" data-interval="1825">5Y</button>
+                    <button class="interval-btn px-3 py-1.5 rounded text-sm font-medium bg-gray-200 dark:bg-gray-600 hover:bg-primary-500 hover:text-white dark:text-gray-300 dark:hover:bg-primary-600 transition-colors" data-interval="3650">10Y</button>
+                    <button class="interval-btn px-3 py-1.5 rounded text-sm font-medium bg-gray-200 dark:bg-gray-600 hover:bg-primary-500 hover:text-white dark:text-gray-300 dark:hover:bg-primary-600 transition-colors" data-interval="5475">15Y</button>
+                    <button class="interval-btn px-3 py-1.5 rounded text-sm font-medium bg-gray-200 dark:bg-gray-600 hover:bg-primary-500 hover:text-white dark:text-gray-300 dark:hover:bg-primary-600 transition-colors" data-interval="7300">20Y</button>
+                </div>
+            </div>
+            <div>
+                <h3 class="text-sm font-semibold text-gray-600 dark:text-gray-400 mb-2">Display Type:</h3>
+                <div class="flex flex-wrap gap-2">
+                    <button class="interval-type-btn px-3 py-1.5 rounded text-sm font-medium bg-primary-500 text-white dark:bg-primary-600 hover:bg-primary-600 dark:hover:bg-primary-700 transition-colors" data-type="daily">Daily</button>
+                    <button class="interval-type-btn px-3 py-1.5 rounded text-sm font-medium bg-gray-200 dark:bg-gray-600 hover:bg-primary-500 hover:text-white dark:text-gray-300 dark:hover:bg-primary-600 transition-colors" data-type="weekly">Weekly</button>
+                    <button class="interval-type-btn px-3 py-1.5 rounded text-sm font-medium bg-gray-200 dark:bg-gray-600 hover:bg-primary-500 hover:text-white dark:text-gray-300 dark:hover:bg-primary-600 transition-colors" data-type="monthly">Monthly</button>
+                    <button class="interval-type-btn px-3 py-1.5 rounded text-sm font-medium bg-gray-200 dark:bg-gray-600 hover:bg-primary-500 hover:text-white dark:text-gray-300 dark:hover:bg-primary-600 transition-colors" data-type="yearly">Yearly</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Latest Price Indicators (Moved Above Chart) -->
+        <div class="flex flex-wrap gap-x-6 gap-y-2 items-center mb-4 px-1">
+             <div>
+                 <span class="text-sm font-semibold text-gray-500 dark:text-gray-400">Sell:</span>
+                 <span id="latest-sell" class="text-lg font-bold text-blue-500">-</span>
+                 <span id="change-sell" class="text-xs font-medium ml-1"></span>
+             </div>
+             <div>
+                 <span class="text-sm font-semibold text-gray-500 dark:text-gray-400">Buy:</span>
+                 <span id="latest-buy" class="text-lg font-bold text-green-500">-</span>
+                 <span id="change-buy" class="text-xs font-medium ml-1"></span>
+             </div>
+        </div>
+        
+        <!-- Chart Area -->
+        <div class="relative bg-gray-50 dark:bg-gray-900 p-2 border border-gray-200 dark:border-gray-700 rounded-lg" style="height: 55vh;">
+            <canvas id="goldChart"></canvas>
+            <div id="loading" class="absolute inset-0 flex items-center justify-center bg-white/70 dark:bg-gray-900/70 z-10 rounded-lg">
+                <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-500"></div>
+            </div>
+        </div>
+
+        <!-- Financial Analytics Section -->
+        <div class="mt-6 border-t border-gray-200 dark:border-gray-700 pt-5">
+            <h3 class="text-lg font-semibold mb-3 dark:text-white">Financial Analytics (Selected Period)</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <!-- Sell Price Analytics Card -->
+                <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 border border-gray-200 dark:border-gray-600">
+                    <h4 class="text-md font-semibold text-blue-600 dark:text-blue-400 mb-2">Sell Price (0.01g)</h4>
+                    <div class="space-y-1.5 text-sm text-gray-700 dark:text-gray-300">
+                        <div class="flex justify-between"><span>Period High:</span> <strong id="sell-high">-</strong></div>
+                        <div class="flex justify-between"><span>Period Low:</span> <strong id="sell-low">-</strong></div>
+                        <div class="flex justify-between"><span>50-Period SMA:</span> <strong id="sell-sma50">-</strong></div>
+                        <div class="flex justify-between"><span>200-Period SMA:</span> <strong id="sell-sma200">-</strong></div>
+                        <div class="flex justify-between"><span>Volatility (Std Dev):</span> <strong id="sell-volatility">-</strong></div>
+                    </div>
+                </div>
+                <!-- Buy Price Analytics Card -->
+                <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 border border-gray-200 dark:border-gray-600">
+                     <h4 class="text-md font-semibold text-green-600 dark:text-green-400 mb-2">Buy Price (0.01g)</h4>
+                     <div class="space-y-1.5 text-sm text-gray-700 dark:text-gray-300">
+                        <div class="flex justify-between"><span>Period High:</span> <strong id="buy-high">-</strong></div>
+                        <div class="flex justify-between"><span>Period Low:</span> <strong id="buy-low">-</strong></div>
+                        <div class="flex justify-between"><span>50-Period SMA:</span> <strong id="buy-sma50">-</strong></div>
+                        <div class="flex justify-between"><span>200-Period SMA:</span> <strong id="buy-sma200">-</strong></div>
+                        <div class="flex justify-between"><span>Volatility (Std Dev):</span> <strong id="buy-volatility">-</strong></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+    let goldChart = null;
+    let currentInterval = 30; // Default interval
+    let currentIntervalType = 'daily';
+    const baseUrl = "{% url 'gold_price_data' %}";
+    let previousData = null;
+
+    // Initialize the chart with financial features
+    function initChart() {
+        const ctx = document.getElementById('goldChart').getContext('2d');
+        
+        const isDarkMode = document.documentElement.classList.contains('dark');
+        const textColor = isDarkMode ? '#F3F4F6' : '#111827';
+        const gridColor = isDarkMode ? 'rgba(243, 244, 246, 0.1)' : 'rgba(17, 24, 39, 0.1)';
+        const crosshairColor = isDarkMode ? 'rgba(255, 255, 255, 0.5)' : 'rgba(0, 0, 0, 0.5)';
+        
+        // Register the crosshair plugin
+        const crosshairPlugin = {
+            id: 'crosshair',
+            afterDraw: function(chart) {
+                if (chart.tooltip._active && chart.tooltip._active.length) {
+                    const activePoint = chart.tooltip._active[0];
+                    const ctx = chart.ctx;
+                    const x = activePoint.element.x;
+                    const topY = chart.scales.y.top;
+                    const bottomY = chart.scales.y.bottom;
+                    
+                    ctx.save();
+                    ctx.beginPath();
+                    ctx.moveTo(x, topY);
+                    ctx.lineTo(x, bottomY);
+                    ctx.lineWidth = 1;
+                    ctx.strokeStyle = crosshairColor;
+                    ctx.stroke();
+                    
+                    // Also draw horizontal line for the y value
+                    const y = activePoint.element.y;
+                    const leftX = chart.scales.x.left;
+                    const rightX = chart.scales.x.right;
+                    
+                    ctx.beginPath();
+                    ctx.moveTo(leftX, y);
+                    ctx.lineTo(rightX, y);
+                    ctx.stroke();
+                    ctx.restore();
+                }
+            }
+        };
+        
+        Chart.register(crosshairPlugin);
+        
+        goldChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [
+                    {
+                        label: 'Sell Price',
+                        data: [],
+                        borderColor: '#3B82F6',
+                        backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                        borderWidth: 2,
+                        tension: 0.2,
+                        fill: true,
+                        pointRadius: 0, // Remove circles by setting pointRadius to 0
+                        pointHoverRadius: 5, // Keep hover effect
+                        pointBackgroundColor: '#3B82F6',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#3B82F6',
+                        pointHoverBorderColor: '#fff',
+                        pointBorderWidth: 2,
+                        pointHitRadius: 10,
+                    },
+                    {
+                        label: 'Buy Price',
+                        data: [],
+                        borderColor: '#10B981',
+                        backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                        borderWidth: 2,
+                        tension: 0.2,
+                        fill: true,
+                        pointRadius: 0, // Remove circles by setting pointRadius to 0
+                        pointHoverRadius: 5, // Keep hover effect
+                        pointBackgroundColor: '#10B981',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#10B981',
+                        pointHoverBorderColor: '#fff',
+                        pointBorderWidth: 2,
+                        pointHitRadius: 10,
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: {
+                    mode: 'index',
+                    intersect: false,
+                },
+                scales: {
+                    y: {
+                        ticks: {
+                            color: textColor,
+                            callback: function(value) {
+                                // Format for IDR, potentially with decimals if needed after division
+                                return value.toLocaleString('id-ID', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
+                            }
+                        },
+                        grid: {
+                            color: gridColor
+                        },
+                        title: {
+                            display: true,
+                            text: 'Price (IDR per 0.01g)', // Updated Y-axis title
+                            color: textColor
+                        }
+                    },
+                    x: {
+                        display: false,  // Hide the x-axis labels and lines entirely
+                        grid: {
+                            display: false  // Hide the grid lines
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false, // Hide the legend since we have custom legend
+                        labels: {
+                            color: textColor
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: isDarkMode ? 'rgba(17, 24, 39, 0.8)' : 'rgba(255, 255, 255, 0.8)',
+                        titleColor: isDarkMode ? '#F3F4F6' : '#111827',
+                        bodyColor: isDarkMode ? '#F3F4F6' : '#111827',
+                        borderColor: isDarkMode ? '#374151' : '#E5E7EB',
+                        borderWidth: 1,
+                        padding: 10,
+                        displayColors: true,
+                        callbacks: {
+                            title: function(tooltipItems) {
+                                // Display the date inside the tooltip
+                                return 'Date: ' + tooltipItems[0].label;
+                            },
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                if (context.parsed.y !== null) {
+                                    // Format for IDR, potentially with decimals
+                                    label += new Intl.NumberFormat('id-ID', { minimumFractionDigits: 0, maximumFractionDigits: 2 }).format(context.parsed.y) + ' IDR/0.01g';
+                                }
+                                return label;
+                            }
+                        }
+                    },
+                    annotation: {
+                        annotations: {
+                            line1: {
+                                type: 'line',
+                                scaleID: 'y',
+                                borderColor: 'rgba(255, 99, 132, 0.5)',
+                                borderWidth: 1,
+                                value: 0, // Will be updated
+                                borderDash: [5, 5],
+                                label: {
+                                    enabled: true, // Enable label for average
+                                    content: 'Average', // Will be updated
+                                    position: 'end',
+                                    backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                                    color: '#fff',
+                                    font: {
+                                        size: 10
+                                    },
+                                    padding: 3,
+                                    yAdjust: -10
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        });
+        
+        return goldChart;
+    }
+    
+    // Function to update chart theme colors when switching between light/dark mode
+    function updateChartTheme() {
+        if (!goldChart) return;
+        
+        const isDarkMode = document.documentElement.classList.contains('dark');
+        const textColor = isDarkMode ? '#F3F4F6' : '#111827';
+        const gridColor = isDarkMode ? 'rgba(243, 244, 246, 0.1)' : 'rgba(17, 24, 39, 0.1)';
+        
+        goldChart.options.scales.y.ticks.color = textColor;
+        goldChart.options.scales.y.grid.color = gridColor;
+        goldChart.options.scales.y.title.color = textColor;
+        goldChart.options.plugins.legend.labels.color = textColor;
+        goldChart.options.plugins.tooltip.backgroundColor = isDarkMode ? 'rgba(17, 24, 39, 0.8)' : 'rgba(255, 255, 255, 0.8)';
+        goldChart.options.plugins.tooltip.titleColor = isDarkMode ? '#F3F4F6' : '#111827';
+        goldChart.options.plugins.tooltip.bodyColor = isDarkMode ? '#F3F4F6' : '#111827';
+        goldChart.options.plugins.tooltip.borderColor = isDarkMode ? '#374151' : '#E5E7EB';
+        
+        if (goldChart.options.plugins.title) {
+            goldChart.options.plugins.title.color = textColor;
+        }
+        
+        goldChart.update();
+    }
+    
+    // Function to process data based on interval type
+    function processDataByIntervalType(priceList, intervalType) {
+        // Adjust prices first
+        const adjustedPriceList = priceList.map(item => ({
+            ...item,
+            hargaJual: parseInt(item.hargaJual), // Use raw integer value
+            hargaBeli: parseInt(item.hargaBeli)  // Use raw integer value
+        }));
+
+        // Sort by date ascending
+        const sortedData = [...adjustedPriceList].sort((a, b) => 
+            new Date(a.lastUpdate) - new Date(b.lastUpdate)
+        );
+        
+        if (intervalType === 'daily' || sortedData.length <= 7) {
+            // Return daily data with formatted dates including year
+            return {
+                dates: sortedData.map(item => {
+                    const date = new Date(item.lastUpdate);
+                    return `${String(date.getDate()).padStart(2, '0')}/${String(date.getMonth() + 1).padStart(2, '0')}/${date.getFullYear()}`;
+                }),
+                rawDates: sortedData.map(item => item.lastUpdate),
+                fullDates: sortedData.map(item => new Date(item.lastUpdate)),
+                sellPrices: sortedData.map(item => item.hargaJual), // Use raw price
+                buyPrices: sortedData.map(item => item.hargaBeli),   // Use raw price
+                rawData: sortedData // Store the raw data
+            };
+        } else if (intervalType === 'weekly') {
+            // Group by week with full date format
+            const weeklyData = {};
+            
+            sortedData.forEach(item => {
+                const date = new Date(item.lastUpdate);
+                // Get first day of week (Sunday)
+                const firstDay = new Date(date);
+                firstDay.setDate(date.getDate() - date.getDay());
+                const weekKey = `${firstDay.getFullYear()}-${String(firstDay.getMonth() + 1).padStart(2, '0')}-${String(firstDay.getDate()).padStart(2, '0')}`;
+                
+                if (!weeklyData[weekKey]) {
+                    weeklyData[weekKey] = {
+                        date: firstDay,
+                        displayDate: `${String(firstDay.getDate()).padStart(2, '0')}/${String(firstDay.getMonth() + 1).padStart(2, '0')}/${firstDay.getFullYear()}`,
+                        sellPrices: [],
+                        buyPrices: [],
+                        rawDates: []
+                    };
+                }
+                
+                weeklyData[weekKey].sellPrices.push(item.hargaJual); // Raw price
+                weeklyData[weekKey].buyPrices.push(item.hargaBeli); // Raw price
+                weeklyData[weekKey].rawDates.push(item.lastUpdate);
+            });
+            
+            const weeks = Object.values(weeklyData).sort((a, b) => a.date - b.date);
+            
+            return {
+                dates: weeks.map(week => week.displayDate),
+                rawDates: weeks.map(week => week.rawDates[0]), // Use the first date in each week
+                fullDates: weeks.map(week => week.date),
+                sellPrices: weeks.map(week => {
+                    const avg = week.sellPrices.reduce((sum, price) => sum + price, 0) / week.sellPrices.length;
+                    return Math.round(avg); // Round average of raw prices
+                }),
+                buyPrices: weeks.map(week => {
+                    const avg = week.buyPrices.reduce((sum, price) => sum + price, 0) / week.buyPrices.length;
+                    return Math.round(avg); // Round average of raw prices
+                }),
+                rawData: sortedData // Store the raw data
+            };
+        } else if (intervalType === 'monthly') {
+            // Group by month with full date format including year
+            const monthlyData = {};
+            
+            sortedData.forEach(item => {
+                const date = new Date(item.lastUpdate);
+                const monthKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
+                
+                if (!monthlyData[monthKey]) {
+                    monthlyData[monthKey] = {
+                        date: new Date(date.getFullYear(), date.getMonth(), 1),
+                        displayDate: `${String(date.getMonth() + 1).padStart(2, '0')}/${date.getFullYear()}`,
+                        sellPrices: [],
+                        buyPrices: [],
+                        rawDates: []
+                    };
+                }
+                
+                monthlyData[monthKey].sellPrices.push(item.hargaJual); // Raw price
+                monthlyData[monthKey].buyPrices.push(item.hargaBeli); // Raw price
+                monthlyData[monthKey].rawDates.push(item.lastUpdate);
+            });
+            
+            const months = Object.values(monthlyData).sort((a, b) => a.date - b.date);
+            
+            return {
+                dates: months.map(month => month.displayDate),
+                rawDates: months.map(month => month.rawDates[0]), // Use the first date in each month
+                fullDates: months.map(month => month.date),
+                sellPrices: months.map(month => {
+                    const avg = month.sellPrices.reduce((sum, price) => sum + price, 0) / month.sellPrices.length;
+                    return Math.round(avg); // Round average of raw prices
+                }),
+                buyPrices: months.map(month => {
+                    const avg = month.buyPrices.reduce((sum, price) => sum + price, 0) / month.buyPrices.length;
+                    return Math.round(avg); // Round average of raw prices
+                }),
+                rawData: sortedData // Store the raw data
+            };
+        } else if (intervalType === 'yearly') {
+            // Group by year
+            const yearlyData = {};
+            
+            sortedData.forEach(item => {
+                const date = new Date(item.lastUpdate);
+                const yearKey = `${date.getFullYear()}`;
+                
+                if (!yearlyData[yearKey]) {
+                    yearlyData[yearKey] = {
+                        date: new Date(date.getFullYear(), 0, 1), // Start of the year
+                        displayDate: yearKey,
+                        sellPrices: [],
+                        buyPrices: [],
+                        rawDates: []
+                    };
+                }
+                
+                yearlyData[yearKey].sellPrices.push(item.hargaJual); // Raw price
+                yearlyData[yearKey].buyPrices.push(item.hargaBeli); // Raw price
+                yearlyData[yearKey].rawDates.push(item.lastUpdate);
+            });
+            
+            const years = Object.values(yearlyData).sort((a, b) => a.date - b.date);
+            
+            return {
+                dates: years.map(year => year.displayDate),
+                rawDates: years.map(year => year.rawDates[0]), // Use the first date in each year
+                fullDates: years.map(year => year.date),
+                sellPrices: years.map(year => {
+                    const avg = year.sellPrices.reduce((sum, price) => sum + price, 0) / year.sellPrices.length;
+                    return Math.round(avg); // Round average of raw prices
+                }),
+                buyPrices: years.map(year => {
+                    const avg = year.buyPrices.reduce((sum, price) => sum + price, 0) / year.buyPrices.length;
+                    return Math.round(avg); // Round average of raw prices
+                }),
+                rawData: sortedData // Store the raw data
+            };
+        }
+    }
+    
+    // Calculate price change percentage comparing based on selected interval/range
+    function calculatePriceChange(currentPrice, rawData, priceType) {
+        // rawData now contains raw integer prices
+        if (!rawData || rawData.length <= 1) {
+            return { change: 0, isPositive: true, changeValue: 0 };
+        }
+        
+        // Get current (latest) price (raw integer)
+        const latestPrice = currentPrice;
+        
+        // Find the oldest price within our interval/range to compare with
+        let oldestPrice;
+        
+        if (rawData.length > 0) {
+            oldestPrice = (priceType === 'sell' ? rawData[0].hargaJual : rawData[0].hargaBeli);
+        } else {
+            return { change: 0, isPositive: true, changeValue: 0 };
+        }
+        
+        // Calculate the change
+        const changeValue = latestPrice - oldestPrice;
+        const changePercent = oldestPrice !== 0 ? (changeValue / oldestPrice) * 100 : 0;
+        
+        return {
+            change: Math.abs(changePercent).toFixed(2),
+            isPositive: changeValue >= 0,
+            changeValue: changeValue
+        };
+    }
+    
+    // Function to update latest price indicators
+    function updateLatestPriceIndicators(processedData) {
+        // processedData contains raw integer prices
+        if (!processedData || !processedData.rawData || processedData.rawData.length === 0) {
+             // Clear indicators if no data
+            document.getElementById('latest-buy').textContent = '-';
+            document.getElementById('latest-sell').textContent = '-';
+            document.getElementById('change-buy').textContent = '';
+            document.getElementById('change-sell').textContent = '';
+            return;
+        }
+        
+        // Get latest buy and sell prices (raw integers)
+        const latestRawEntry = processedData.rawData[processedData.rawData.length - 1];
+        const latestBuyPrice = latestRawEntry.hargaBeli; // Raw price
+        const latestSellPrice = latestRawEntry.hargaJual; // Raw price
+        
+        // Calculate price changes based on raw prices
+        const buyChange = calculatePriceChange(latestBuyPrice, processedData.rawData, 'buy');
+        const sellChange = calculatePriceChange(latestSellPrice, processedData.rawData, 'sell');
+        
+        // Update the DOM elements, formatting for IDR (no decimals needed for integers)
+        document.getElementById('latest-buy').textContent = latestBuyPrice.toLocaleString('id-ID');
+        document.getElementById('latest-sell').textContent = latestSellPrice.toLocaleString('id-ID');
+        
+        const buyChangeEl = document.getElementById('change-buy');
+        // Format change value as integer
+        const buyChangeValueFormatted = Math.abs(buyChange.changeValue).toLocaleString('id-ID');
+        buyChangeEl.textContent = `${buyChange.isPositive ? '↑' : '↓'} ${buyChangeValueFormatted} (${buyChange.change}%)`;
+        buyChangeEl.className = `text-sm font-medium ${buyChange.isPositive ? 'text-green-500' : 'text-red-500'}`;
+        
+        const sellChangeEl = document.getElementById('change-sell');
+        // Format change value as integer
+        const sellChangeValueFormatted = Math.abs(sellChange.changeValue).toLocaleString('id-ID');
+        sellChangeEl.textContent = `${sellChange.isPositive ? '↑' : '↓'} ${sellChangeValueFormatted} (${sellChange.change}%)`;
+        sellChangeEl.className = `text-sm font-medium ${sellChange.isPositive ? 'text-green-500' : 'text-red-500'}`;
+    }
+
+    // --- Helper Functions for Analytics ---
+
+    function calculateSMA(data, period) {
+        if (!data || data.length < period) {
+            return null; // Not enough data
+        }
+        const relevantData = data.slice(-period); // Get the last 'period' points
+        const sum = relevantData.reduce((acc, val) => acc + val, 0);
+        return sum / period;
+    }
+
+    function calculateVolatility(data) {
+        if (!data || data.length < 2) {
+            return null; // Need at least 2 points
+        }
+        const n = data.length;
+        const mean = data.reduce((acc, val) => acc + val, 0) / n;
+        const variance = data.reduce((acc, val) => acc + Math.pow(val - mean, 2), 0) / (n - 1); // Sample variance
+        return Math.sqrt(variance);
+    }
+
+    function findHighLow(data) {
+         if (!data || data.length === 0) {
+            return { high: null, low: null };
+        }
+        let high = data[0];
+        let low = data[0];
+        for (let i = 1; i < data.length; i++) {
+            if (data[i] > high) high = data[i];
+            if (data[i] < low) low = data[i];
+        }
+        return { high, low };
+    }
+
+    // Function to update analytics display
+    function updateAnalyticsDisplay(processedData) {
+        const analyticsElements = {
+            sellHigh: document.getElementById('sell-high'),
+            sellLow: document.getElementById('sell-low'),
+            sellSma50: document.getElementById('sell-sma50'),
+            sellSma200: document.getElementById('sell-sma200'),
+            sellVolatility: document.getElementById('sell-volatility'),
+            buyHigh: document.getElementById('buy-high'),
+            buyLow: document.getElementById('buy-low'),
+            buySma50: document.getElementById('buy-sma50'),
+            buySma200: document.getElementById('buy-sma200'),
+            buyVolatility: document.getElementById('buy-volatility'),
+        };
+
+        // Clear previous values
+        Object.values(analyticsElements).forEach(el => el.textContent = '-');
+
+        if (!processedData || !processedData.rawData || processedData.rawData.length === 0) {
+            return; // No data to analyze
+        }
+
+        const rawSellPrices = processedData.rawData.map(item => item.hargaJual);
+        const rawBuyPrices = processedData.rawData.map(item => item.hargaBeli);
+
+        // Calculate analytics
+        const sellStats = findHighLow(rawSellPrices);
+        const buyStats = findHighLow(rawBuyPrices);
+        const sellSma50 = calculateSMA(rawSellPrices, 50);
+        const sellSma200 = calculateSMA(rawSellPrices, 200);
+        const sellVolatility = calculateVolatility(rawSellPrices);
+        const buySma50 = calculateSMA(rawBuyPrices, 50);
+        const buySma200 = calculateSMA(rawBuyPrices, 200);
+        const buyVolatility = calculateVolatility(rawBuyPrices);
+
+        // Update DOM
+        if (sellStats.high !== null) analyticsElements.sellHigh.textContent = sellStats.high.toLocaleString('id-ID');
+        if (sellStats.low !== null) analyticsElements.sellLow.textContent = sellStats.low.toLocaleString('id-ID');
+        if (sellSma50 !== null) analyticsElements.sellSma50.textContent = sellSma50.toLocaleString('id-ID', { maximumFractionDigits: 0 });
+        if (sellSma200 !== null) analyticsElements.sellSma200.textContent = sellSma200.toLocaleString('id-ID', { maximumFractionDigits: 0 });
+        if (sellVolatility !== null) analyticsElements.sellVolatility.textContent = sellVolatility.toLocaleString('id-ID', { maximumFractionDigits: 2 });
+
+        if (buyStats.high !== null) analyticsElements.buyHigh.textContent = buyStats.high.toLocaleString('id-ID');
+        if (buyStats.low !== null) analyticsElements.buyLow.textContent = buyStats.low.toLocaleString('id-ID');
+        if (buySma50 !== null) analyticsElements.buySma50.textContent = buySma50.toLocaleString('id-ID', { maximumFractionDigits: 0 });
+        if (buySma200 !== null) analyticsElements.buySma200.textContent = buySma200.toLocaleString('id-ID', { maximumFractionDigits: 0 });
+        if (buyVolatility !== null) analyticsElements.buyVolatility.textContent = buyVolatility.toLocaleString('id-ID', { maximumFractionDigits: 2 });
+    }
+    
+    // Function to fetch gold price data and update the chart
+    function fetchGoldData(interval, intervalType) {
+        document.getElementById('loading').classList.remove('hidden');
+        
+        // Construct URL with appropriate parameters
+        let url = baseUrl;
+        const params = new URLSearchParams();
+        if (interval) {
+            params.append('interval', interval);
+        }
+        // Only add params if there are any
+        if ([...params].length > 0) {
+             url += `?${params.toString()}`;
+        }
+
+        // Store current fetch parameters
+        currentInterval = interval; // Store the current interval
+        currentIntervalType = intervalType;
+
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                if (data.responseCode === "2000000100") {
+                    // Get the full price list from the response
+                    const priceList = data.data.priceList;
+                    
+                    if (!priceList || priceList.length === 0) {
+                        // Handle no data case
+                        goldChart.data.labels = [];
+                        goldChart.data.datasets[0].data = [];
+                        goldChart.data.datasets[1].data = [];
+                        goldChart.options.plugins.title.text = 'No data available for selected range';
+                        goldChart.update();
+                        updateLatestPriceIndicators(null); // Clear indicators
+                        updateAnalyticsDisplay(null); // Clear analytics
+                        return;
+                    }
+
+                    // Process data based on interval type (uses raw prices now)
+                    const processedData = processDataByIntervalType(priceList, intervalType);
+                    
+                    // Update chart with processed data (raw prices)
+                    goldChart.data.labels = processedData.dates;
+                    goldChart.data.datasets[0].data = processedData.sellPrices;
+                    goldChart.data.datasets[1].data = processedData.buyPrices;
+                    
+                    // Calculate average price for annotation (using raw sell prices)
+                    const averageSellPrice = processedData.sellPrices.reduce((a, b) => a + b, 0) / processedData.sellPrices.length;
+                    
+                    // Update annotation for average line
+                    if (goldChart.options.plugins.annotation && goldChart.options.plugins.annotation.annotations) {
+                        goldChart.options.plugins.annotation.annotations.line1.value = averageSellPrice;
+                        // Format average price for the label (as integer)
+                        const avgFormatted = Math.round(averageSellPrice).toLocaleString('id-ID');
+                        goldChart.options.plugins.annotation.annotations.line1.label.content = `Avg: ${avgFormatted}`;
+                        goldChart.options.plugins.annotation.annotations.line1.label.enabled = !isNaN(averageSellPrice);
+                    }
+                    
+                    // Update chart title based on interval type and range
+                    let titlePrefix = "Daily";
+                    if (intervalType === 'weekly') titlePrefix = "Weekly Average";
+                    if (intervalType === 'monthly') titlePrefix = "Monthly Average";
+                    if (intervalType === 'yearly') titlePrefix = "Yearly Average";
+                    
+                    let dateRangeSuffix = "";
+                    if (processedData.dates.length > 0) {
+                         dateRangeSuffix = ` - ${processedData.dates[0]} to ${processedData.dates[processedData.dates.length - 1]}`;
+                    }
+                    
+                    goldChart.options.plugins.title.text = `${titlePrefix} Gold Price (0.01g)${dateRangeSuffix}`;
+                    goldChart.options.plugins.title.display = true;
+                    
+                    // Update the chart
+                    goldChart.update();
+                    
+                    // Update latest price indicators
+                    updateLatestPriceIndicators(processedData);
+
+                    // Update financial analytics display
+                    updateAnalyticsDisplay(processedData);
+                } else {
+                    console.error('Error fetching gold data:', data.responseDesc);
+                    alert('Failed to load gold price data. Please try again later.');
+                     // Clear chart and indicators on error
+                    goldChart.data.labels = [];
+                    goldChart.data.datasets[0].data = [];
+                    goldChart.data.datasets[1].data = [];
+                    goldChart.options.plugins.title.text = 'Error loading data';
+                    goldChart.update();
+                    updateLatestPriceIndicators(null);
+                    updateAnalyticsDisplay(null); // Clear analytics on error
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching gold data:', error);
+                alert('Failed to load gold price data. Please try again later.');
+                 // Clear chart and indicators on fetch error
+                goldChart.data.labels = [];
+                goldChart.data.datasets[0].data = [];
+                goldChart.data.datasets[1].data = [];
+                goldChart.options.plugins.title.text = 'Error loading data';
+                goldChart.update();
+                updateLatestPriceIndicators(null);
+                updateAnalyticsDisplay(null); // Clear analytics on error
+            })
+            .finally(() => {
+                document.getElementById('loading').classList.add('hidden');
+            });
+    }
+    
+    // Helper function to format date with option to include year
+    function formatDate(dateStr, includeYear = true) {
+        // Consider adding specific formatting for 'yearly' if needed, though current logic might suffice.
+        if (!dateStr) return '';
+        const date = new Date(dateStr);
+        
+        if (includeYear) {
+            return date.toLocaleDateString('id-ID', { 
+                year: 'numeric', 
+                month: 'short', 
+                day: 'numeric' 
+            });
+        } else {
+            return date.toLocaleDateString('id-ID', { 
+                month: 'short', 
+                day: 'numeric' 
+            });
+        }
+    }
+    
+    // Set up event listeners
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize the chart
+        goldChart = initChart();
+        
+        // Add title plugin option
+        goldChart.options.plugins.title = {
+            display: true,
+            text: 'Daily Gold Price (0.01g)', // Updated default title
+            font: {
+                size: 16,
+                weight: 'bold'
+            },
+            color: document.documentElement.classList.contains('dark') ? '#F3F4F6' : '#111827',
+            padding: {
+                top: 10,
+                bottom: 20
+            }
+        };
+        
+        // Fetch initial data (using default interval)
+        fetchGoldData(currentInterval, currentIntervalType);
+        
+        // Set up interval button click handlers
+        const intervalButtons = document.querySelectorAll('.interval-btn');
+
+        intervalButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // Update active button styling
+                intervalButtons.forEach(btn => {
+                    btn.classList.remove('bg-primary-500', 'text-white', 'dark:bg-primary-600');
+                    btn.classList.add('bg-gray-200', 'dark:bg-gray-700', 'dark:text-gray-300');
+                });
+                
+                this.classList.remove('bg-gray-200', 'dark:bg-gray-700', 'dark:text-gray-300');
+                this.classList.add('bg-primary-500', 'text-white', 'dark:bg-primary-600');
+                
+                // Get interval and fetch data
+                const interval = this.dataset.interval;
+                fetchGoldData(interval, currentIntervalType); // Pass interval, null for dates
+            });
+        });
+
+        // Set up interval type button click handlers
+        const intervalTypeButtons = document.querySelectorAll('.interval-type-btn');
+        intervalTypeButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // Update active button styling
+                intervalTypeButtons.forEach(btn => {
+                    btn.classList.remove('bg-primary-500', 'text-white', 'dark:bg-primary-600');
+                    btn.classList.add('bg-gray-200', 'dark:bg-gray-700', 'dark:text-gray-300');
+                });
+                
+                this.classList.remove('bg-gray-200', 'dark:bg-gray-700', 'dark:text-gray-300');
+                this.classList.add('bg-primary-500', 'text-white', 'dark:bg-primary-600');
+                
+                // Get interval type and fetch data using current range/interval settings
+                const type = this.dataset.type;
+                fetchGoldData(currentInterval, type);
+            });
+        });
+
+        // Add listener for theme changes to update chart colors
+        const observer = new MutationObserver(updateChartTheme);
+        observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+        // Initial theme check in case theme is set on load
+        updateChartTheme();
+    });
+</script>
+{% endblock %}
