@@ -1,16 +1,16 @@
 {% extends "base.html" %}
 
-{% block title %}Harga Emas Live (IDR per 0.01g) - Data & Grafik Historis{% endblock %} {# Updated title #}
-{% block meta_description %}Lacak harga emas terbaru dalam Rupiah Indonesia (IDR) per 0.01 gram. Lihat grafik data historis (harian, mingguan, bulanan, tahunan) dan analitik keuangan.{% endblock %} {# Updated description #}
-{% block meta_keywords %}harga emas IDR, harga emas hari ini, grafik emas, harga emas 0.01g, data historis emas, investasi emas, harga emas Indonesia, emas Antam, emas Pegadaian, Rupiah{% endblock %} {# Updated keywords #}
+{% block title %}Harga Emas Hari Ini Live (IDR per 0.01g) - Data & Grafik Historis Indonesia{% endblock %} {# Updated title #}
+{% block meta_description %}Lacak harga emas terbaru hari ini secara live dalam Rupiah Indonesia (IDR) per 0.01 gram. Lihat grafik data historis (harian, mingguan, bulanan, tahunan) dan analitik keuangan untuk emas di Indonesia.{% endblock %} {# Updated description #}
+{% block meta_keywords %}harga emas IDR, harga emas hari ini, grafik emas, harga emas 0.01g, data historis emas, investasi emas, harga emas Indonesia, emas Antam, emas Pegadaian, Rupiah, harga emas harian, harga emas live{% endblock %} {# Updated keywords #}
 
-{% block title_og %}Harga Emas Live (IDR per 0.01g) - Data Historis{% endblock %} {# Updated OG title #}
-{% block meta_description_og %}Lacak harga emas terbaru dalam Rupiah Indonesia (IDR) per 0.01 gram. Lihat grafik data historis (harian, mingguan, bulanan, tahunan) dan analitik keuangan.{% endblock %} {# Updated OG description #}
+{% block title_og %}Harga Emas Hari Ini Live (IDR per 0.01g) - Data Historis Indonesia{% endblock %} {# Updated OG title #}
+{% block meta_description_og %}Lacak harga emas terbaru hari ini secara live dalam Rupiah Indonesia (IDR) per 0.01 gram. Lihat grafik data historis (harian, mingguan, bulanan, tahunan) dan analitik keuangan untuk emas di Indonesia.{% endblock %} {# Updated OG description #}
 {# Add a specific OG image for this page if available #}
 {# {% block og_image %}{% static 'images/gold_chart_preview.png' %}{% endblock %} #}
 
-{% block title_twitter %}Harga Emas Live (IDR/0.01g) - Grafik & Data{% endblock %} {# Updated Twitter title #}
-{% block meta_description_twitter %}Harga emas IDR terbaru per 0.01g dengan grafik historis (harian, mingguan, bulanan, tahunan) & analitik keuangan.{% endblock %} {# Updated Twitter description #}
+{% block title_twitter %}Harga Emas Hari Ini Live (IDR/0.01g) - Grafik & Data Indonesia{% endblock %} {# Updated Twitter title #}
+{% block meta_description_twitter %}Harga emas IDR terbaru hari ini per 0.01g dengan grafik historis (harian, mingguan, bulanan, tahunan) & analitik keuangan di Indonesia.{% endblock %} {# Updated Twitter description #}
 {# Add a specific Twitter image for this page if available #}
 {# {% block twitter_image %}{% static 'images/gold_chart_preview.png' %}{% endblock %} #}
 
@@ -28,21 +28,35 @@
 {
   "@context": "https://schema.org",
   "@type": "WebPage",
-  "name": "Harga Emas Live (IDR per 0.01g) - Data & Grafik Historis", {# Updated name #}
-  "description": "Lacak harga emas terbaru dalam Rupiah Indonesia (IDR) per 0.01 gram. Lihat grafik data historis (harian, mingguan, bulanan, tahunan) dan analitik keuangan.", {# Updated description #}
+  "name": "Harga Emas Hari Ini Live (IDR per 0.01g) - Data & Grafik Historis Indonesia", {# Updated name #}
+  "description": "Lacak harga emas terbaru hari ini secara live dalam Rupiah Indonesia (IDR) per 0.01 gram. Lihat grafik data historis harian, mingguan, bulanan, tahunan dan analitik keuangan untuk emas di Indonesia.", {# Updated description #}
   "url": "{{ request.build_absolute_uri }}",
-  "inLanguage": "id-ID", {# Added language #}
+  "inLanguage": "id-ID",
+  {% if latest_gold_data and latest_gold_data.parsedUpdate %}
+  "dateModified": "{{ latest_gold_data.parsedUpdate|date:'Y-m-d\\TH:i:sP' }}", {# Use latest data timestamp #}
+  {% endif %}
+  // "datePublished": "YYYY-MM-DD", // Optional: Add the date the page was first published
+  "publisher": {
+      "@type": "Organization",
+      "name": "Pelacak Harga Emas Indonesia", {# Or your site/organization name #}
+      "logo": { // Optional but recommended
+          "@type": "ImageObject",
+          "url": "https://ridwaanhall.com/favicon.ico" // Replace with actual logo URL
+      }
+  },
   "mainEntity": {
     "@type": "Dataset",
-    "name": "Data Historis Harga Emas (IDR per 0.01g)", {# Updated name #}
-    "description": "Data time series untuk harga jual dan beli emas dalam Rupiah Indonesia (IDR) per 0.01 gram.", {# Updated description #}
-    "keywords": ["harga emas", "IDR", "data historis", "harga komoditas", "keuangan", "emas Antam", "emas Pegadaian", "Rupiah"], {# Updated keywords #}
+    "mainEntityOfPage": "{{ request.build_absolute_uri }}", {# Link back to this page #}
+    "name": "Data Historis & Terkini Harga Emas Harian Indonesia (IDR per 0.01g)", {# Updated name #}
+    "description": "Data time series harian terkini untuk harga jual dan beli emas di Indonesia dalam Rupiah (IDR) per 0.01 gram. Data mencakup periode historis yang signifikan dan diperbarui secara berkala.", {# Updated description #}
+    "keywords": ["harga emas", "IDR", "data historis", "harga komoditas", "keuangan", "emas Antam", "emas Pegadaian", "Rupiah", "harga emas harian", "harga emas terkini", "Indonesia"], {# Updated keywords #}
     "license": "https://creativecommons.org/licenses/by/4.0/", {# Example license, adjust if needed #}
     "creator": {
       "@type": "Organization",
       "name": "Pelacak Harga Emas Indonesia" {# Or your site/organization name #}
     },
     "temporalCoverage": "P20Y/PRESENT", {# Example: Covers last 20 years up to present, adjust based on actual data range #}
+    "temporalResolution": "P1D", {# Data is available daily #}
     "spatialCoverage": {
       "@type": "Place",
       "name": "Indonesia"
@@ -50,21 +64,59 @@
     "variableMeasured": [
       {
         "@type": "PropertyValue",
-        "name": "Harga Jual Emas", {# Updated name #}
-        "unitText": "IDR per 0.01g"
+        "name": "Harga Jual Emas Harian",
+        "propertyID": "goldSellPriceDaily",
+        "unitText": "IDR per 0.01g" {# Standardized unit #}
       },
       {
         "@type": "PropertyValue",
-        "name": "Harga Beli Emas", {# Updated name #}
-        "unitText": "IDR per 0.01g"
+        "name": "Harga Beli Emas Harian",
+        "propertyID": "goldBuyPriceDaily",
+        "unitText": "IDR per 0.01g" {# Standardized unit #}
       }
-    ]
+    ],
+    {% if latest_gold_data and latest_gold_data.parsedUpdate %}
+    "distribution": {
+      "@type": "DataDownload",
+      "encodingFormat": "application/json",
+      "contentUrl": "{% url 'gold_price_data' %}", // URL to the data API endpoint
+      {% if latest_gold_data and latest_gold_data.parsedUpdate %}
+      "datePublished": "{{ latest_gold_data.parsedUpdate|date:'Y-m-d\\TH:i:sP' }}", {# Date the *distribution* (latest data) was published with full ISO 8601 format #}
+      {% endif %}
+      "exampleOfWork": {
+        "@type": "Observation",
+        "name": "Data Harga Emas Pegadaian Terkini (per 0.01g)", {# Updated name #}
+        "description": "Observasi harga jual dan beli emas terakhir yang tercatat di Indonesia.", {# Updated description #}
+        "observedNode": {
+          "@type": "Place",
+          "name": "Indonesia"
+        },
+        "measuredProperty": [
+          {
+              "@type": "PropertyValue",
+              "propertyID": "goldSellPriceDaily",
+              "name": "Harga Jual Emas Harian",
+              "unitText": "IDR per 0.01g", {# Standardized unit #}
+              "value": "{{ latest_gold_data.hargaJual }}"
+          },
+          {
+              "@type": "PropertyValue",
+              "propertyID": "goldBuyPriceDaily",
+              "name": "Harga Beli Emas Harian",
+              "unitText": "IDR per 0.01g", {# Standardized unit #}
+              "value": "{{ latest_gold_data.hargaBeli }}"
+          }
+        ],
+        "observationDate": "{{ latest_gold_data.parsedUpdate|date:'Y-m-d\\TH:i:sP' }}" // ISO 8601 format
+      }
+    }
+    {% endif %}
   }
 }
 </script>
 {% endblock %}
 
-{% block header_title %}Harga Emas (IDR/0.01g){% endblock %} {# Updated header #}
+{% block header_title %}Harga Emas Hari Ini (IDR/0.01g){% endblock %} {# Updated header #}
 
 {% block content %}
 <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-8">
