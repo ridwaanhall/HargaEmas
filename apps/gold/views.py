@@ -53,7 +53,7 @@ def gold_view(request):
 @cache_page(60 * 5)  # Cache the response for 5 minutes
 def gold_price_data(request):
     """
-    Fetch gold price data from the external API and return as JSON.
+    Fetch gold price data from the external API and return only the data portion as JSON.
     """
     interval = request.GET.get('interval', '1')
 
@@ -63,16 +63,23 @@ def gold_price_data(request):
         response = requests.get(url, timeout=10)
         response.raise_for_status()
         data = response.json()
-        return JsonResponse(data)
+        
+        # Extract only the data portion if response is successful
+        if data.get("responseCode") == "2000000100" and "data" in data:
+            return JsonResponse(data["data"])
+        else:
+            return JsonResponse({
+                "error": "No data available",
+                "message": data.get("responseDesc", "Unknown error")
+            }, status=404)
+            
     except requests.RequestException as e:
         return JsonResponse({
-            "responseCode": "5000000100",
-            "responseDesc": "Error fetching data",
+            "error": "Error fetching data",
             "message": str(e)
         }, status=500)
     except json.JSONDecodeError:
          return JsonResponse({
-            "responseCode": "5000000101",
-            "responseDesc": "Error decoding API response",
+            "error": "Error decoding API response",
             "message": "Invalid JSON received from external API"
         }, status=500)
