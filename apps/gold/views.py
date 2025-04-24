@@ -3,6 +3,7 @@ import requests
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.decorators.cache import cache_page
+from django.conf import settings
 from datetime import datetime # Import datetime
 
 def get_latest_gold_data():
@@ -11,7 +12,7 @@ def get_latest_gold_data():
     Returns the latest price entry or None if an error occurs.
     """
     # Use a default interval likely to contain the latest price list
-    url = "https://sahabat.pegadaian.co.id/gold/prices/chart?interval=1&isRequest=true"
+    url = f"{settings.DATA_URL}?interval=1&isRequest=true"
     try:
         response = requests.get(url, timeout=10)
         response.raise_for_status()
@@ -56,8 +57,7 @@ def gold_price_data(request):
     """
     interval = request.GET.get('interval', '1')
 
-    # Make request to external API
-    url = f"https://sahabat.pegadaian.co.id/gold/prices/chart?interval={interval}&isRequest=true"
+    url = f"{settings.DATA_URL}?interval={interval}&isRequest=true"
 
     try:
         response = requests.get(url, timeout=10)
