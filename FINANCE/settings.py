@@ -26,14 +26,74 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=False, cast=bool)
 
+# Define allowed origins based on ALLOWED_HOSTS
+# Ensure you include the scheme (http or https)
+# Use https for production deployments
+SCHEME = 'https' if not DEBUG else 'http'
+
+# Construct allowed origins for CORS and CSRF
+# Note: Vercel preview URLs might need a more flexible pattern or specific listing if used.
+# The '.vercel.app' might need to be more specific if you know the full preview URL structure.
+# For simplicity, we'll use the base domains here. Adjust if needed.
+ALLOWED_ORIGINS_LIST = [
+    f"{SCHEME}://{host}" for host in [
+        # Add your primary production domains
+        'www.ridwaanhall.me', 'ridwaanhall.me',
+        'www.ridwaanhall.com', 'ridwaanhall.com',
+        # Add localhost for development if needed
+        '127.0.0.1:8000', 'localhost:8000'
+    ]
+]
+# Add Vercel preview/deployment origins (adjust pattern if necessary)
+# Example: Allows any subdomain of vercel.app
+# If your app name is 'myfinanceapp', it might be 'myfinanceapp.vercel.app',
+# 'myfinanceapp-*.vercel.app', etc.
+# Using a regex might be better if the structure varies.
+# For now, adding a generic pattern placeholder - refine this based on your Vercel URLs.
+# ALLOWED_ORIGINS_LIST.append(f"{SCHEME}://*.vercel.app") # Requires CORS_ALLOWED_ORIGIN_REGEXES instead
+
 if DEBUG:
-    ALLOWED_HOSTS = []
+    ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+    # Allow any origin in DEBUG mode for easier development? Or restrict?
+    # For now, let's keep it restricted to localhost during DEBUG.
+    CORS_ALLOWED_ORIGINS = [
+        "http://localhost:8000",
+        "http://127.0.0.1:8000",
+    ]
+    CSRF_TRUSTED_ORIGINS = [
+        "http://localhost:8000",
+        "http://127.0.0.1:8000",
+    ]
 else:
     ALLOWED_HOSTS = [
-        '.vercel.app',
+        '.vercel.app', # Be careful with broad wildcards in production
         '.ridwaanhall.me',
-        '.ridwaanhall.com'
+        '.ridwaanhall.com',
+        # Add your specific Vercel deployment URL if known, e.g., 'my-finance-app.vercel.app'
     ]
+    # Use the constructed list for production
+    CORS_ALLOWED_ORIGINS = [origin for origin in ALLOWED_ORIGINS_LIST if 'localhost' not in origin and '127.0.0.1' not in origin]
+    # Add specific Vercel app URL if needed, e.g., "https://my-finance-app.vercel.app"
+    # Or use regex:
+    # CORS_ALLOWED_ORIGIN_REGEXES = [
+    #     r"^https://\w+\.vercel\.app$",
+    #     r"^https://.*\.ridwaanhall\.me$",
+    #     r"^https://.*\.ridwaanhall\.com$",
+    # ]
+
+    CSRF_TRUSTED_ORIGINS = [origin for origin in ALLOWED_ORIGINS_LIST if 'localhost' not in origin and '127.0.0.1' not in origin]
+    # Add specific Vercel app URL if needed, e.g., "https://my-finance-app.vercel.app"
+
+    # Security settings for production
+    SECURE_SSL_REDIRECT = True # Redirect HTTP to HTTPS
+    SESSION_COOKIE_SECURE = True # Only send session cookies over HTTPS
+    CSRF_COOKIE_SECURE = True # Only send CSRF cookies over HTTPS
+    SECURE_HSTS_SECONDS = 31536000 # 1 year - Enable HTTP Strict Transport Security
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_HSTS_PRELOAD = True
+    SECURE_BROWSER_XSS_FILTER = True
+    SECURE_CONTENT_TYPE_NOSNIFF = True
+    X_FRAME_OPTIONS = 'DENY' # Prevent clickjacking
 
 
 # Application definition
@@ -47,13 +107,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
+
+    'corsheaders', # Add corsheaders
+
     'apps.gold',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     "whitenoise.middleware.WhiteNoiseMiddleware",
+    'corsheaders.middleware.CorsMiddleware', # Add CorsMiddleware here
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -134,7 +197,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'id-id'
 
 TIME_ZONE = 'Asia/Jakarta'
 
