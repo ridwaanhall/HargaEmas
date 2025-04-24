@@ -17,5 +17,5 @@ Including another URLconf
 from django.urls import path, include
 
 urlpatterns = [
-    path('gold/', include('apps.gold.urls')),
+    path('', include('apps.gold.urls')),
 ]
