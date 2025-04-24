@@ -32,6 +32,7 @@ jobs:
         echo "PGPASSWORD=${{ secrets.PGPASSWORD }}" >> $GITHUB_ENV
         echo "PGUSER=${{ secrets.PGUSER }}" >> $GITHUB_ENV
         echo "PGHOST=${{ secrets.PGHOST }}" >> $GITHUB_ENV
+        echo "DATA_URL=${{ secrets.DATA_URL }}" >> $GITHUB_ENV
     - name: Run Tests
       run: |
         python manage.py test
@@ -41,3 +42,4 @@ jobs:
         PGPASSWORD: ${{ secrets.PGPASSWORD }}
         PGUSER: ${{ secrets.PGUSER }}
         PGHOST: ${{ secrets.PGHOST }}
+        DATA_URL: ${{ secrets.DATA_URL }}
