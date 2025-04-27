@@ -127,7 +127,7 @@
     <div class="bg-gradient-to-r from-blue-50 via-indigo-50 to-purple-50 dark:from-gray-800 dark:via-gray-700 dark:to-gray-800 px-6 py-8 border-b border-gray-100 dark:border-gray-700">
         <h2 class="text-3xl font-bold text-gray-800 dark:text-white tracking-tight mb-2">Harga Emas Indonesia</h2>
         <p class="text-gray-600 dark:text-gray-300">IDR per 0.01 gram &bull; Diperbarui secara berkala</p>
-        
+
         <!-- Latest Price Indicators -->
         <div class="flex flex-wrap gap-8 mt-6">
             <div class="bg-white/90 dark:bg-gray-800/80 backdrop-blur-sm rounded-lg px-5 py-4 shadow-sm">
@@ -137,7 +137,7 @@
                     <span id="change-sell" class="text-sm font-medium ml-2"></span>
                 </div>
             </div>
-            
+
             <div class="bg-white/90 dark:bg-gray-800/80 backdrop-blur-sm rounded-lg px-5 py-4 shadow-sm">
                 <span class="block text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">Harga Beli Terbaru</span>
                 <div class="flex items-baseline">
@@ -145,22 +145,37 @@
                     <span id="change-buy" class="text-sm font-medium ml-2"></span>
                 </div>
             </div>
+
+            <!-- Starting Prices for the Period -->
+            <div class="bg-white/90 dark:bg-gray-800/80 backdrop-blur-sm rounded-lg px-5 py-4 shadow-sm">
+                <span class="block text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">Harga Jual Awal Periode</span>
+                <div class="flex items-baseline">
+                    <span id="start-sell" class="text-xl font-semibold text-gray-700 dark:text-gray-300">-</span>
+                </div>
+            </div>
+
+            <div class="bg-white/90 dark:bg-gray-800/80 backdrop-blur-sm rounded-lg px-5 py-4 shadow-sm">
+                <span class="block text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">Harga Beli Awal Periode</span>
+                <div class="flex items-baseline">
+                    <span id="start-buy" class="text-xl font-semibold text-gray-700 dark:text-gray-300">-</span>
+                </div>
+            </div>
         </div>
     </div>
-    
+
     <!-- Controls Section -->
     <div class="bg-white dark:bg-gray-800 p-6">
         <div class="mb-8 space-y-4">
             <div class="flex flex-wrap justify-between items-center gap-4">
                 <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-200">Pengaturan Grafik</h3>
-                
+
                 <!-- Loading indicator - Floating -->
                 <div id="loading" class="hidden px-4 py-2 bg-white dark:bg-gray-700 rounded-full shadow-md flex items-center space-x-2 text-sm">
                     <div class="animate-spin rounded-full h-4 w-4 border-b-2 border-primary-500"></div>
                     <span class="text-gray-600 dark:text-gray-200">Memuat data...</span>
                 </div>
             </div>
-            
+
             <!-- Time Range Selector -->
             <div class="bg-gray-50 dark:bg-gray-700 rounded-xl p-4">
                 <h4 class="text-sm font-medium text-gray-600 dark:text-gray-300 mb-3 flex items-center">
@@ -169,7 +184,7 @@
                     </svg>
                     Rentang Waktu
                 </h4>
-                
+
                 <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-7 gap-2 mb-3">
                     <button class="interval-btn transition-all hover:scale-105 px-3 py-2 rounded-lg text-sm font-medium bg-gray-200 dark:bg-gray-600 hover:bg-primary-500 hover:text-white dark:text-gray-200 dark:hover:bg-primary-600" data-period="7d">7 Hari</button>
                     <button class="interval-btn transition-all hover:scale-105 px-3 py-2 rounded-lg text-sm font-medium bg-primary-500 text-white dark:bg-primary-600 hover:bg-primary-600 dark:hover:bg-primary-700" data-period="1m">1 Bulan</button>
@@ -179,7 +194,7 @@
                     <button class="interval-btn transition-all hover:scale-105 px-3 py-2 rounded-lg text-sm font-medium bg-gray-200 dark:bg-gray-600 hover:bg-primary-500 hover:text-white dark:text-gray-200 dark:hover:bg-primary-600" data-period="2y">2 Tahun</button>
                     <button class="interval-btn transition-all hover:scale-105 px-3 py-2 rounded-lg text-sm font-medium bg-gray-200 dark:bg-gray-600 hover:bg-primary-500 hover:text-white dark:text-gray-200 dark:hover:bg-primary-600" data-period="5y">5 Tahun</button>
                 </div>
-                
+
                 <div class="flex justify-end">
                     <button class="group flex items-center text-xs text-primary-600 hover:text-primary-800 dark:text-primary-400 dark:hover:text-primary-300" type="button" data-dropdown-toggle="extended-time-dropdown">
                         Rentang waktu lainnya
@@ -188,7 +203,7 @@
                         </svg>
                     </button>
                 </div>
-                
+
                 <!-- Extended Time Range Dropdown (hidden by default) -->
                 <div id="extended-time-dropdown" class="hidden bg-white dark:bg-gray-700 shadow-lg rounded-lg p-2 z-10">
                     <div class="grid grid-cols-3 gap-2">
@@ -204,7 +219,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- Display Type Selector -->
             <div class="bg-gray-50 dark:bg-gray-700 rounded-xl p-4">
                 <h4 class="text-sm font-medium text-gray-600 dark:text-gray-300 mb-3 flex items-center">
@@ -213,7 +228,7 @@
                     </svg>
                     Tipe Tampilan
                 </h4>
-                
+
                 <div class="grid grid-cols-4 gap-2">
                     <button class="interval-type-btn transition-all hover:scale-105 px-3 py-2 rounded-lg text-sm font-medium flex flex-col items-center justify-center bg-primary-500 text-white dark:bg-primary-600 hover:bg-primary-600 dark:hover:bg-primary-700" data-type="daily">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -257,7 +272,7 @@
                     <span class="text-xs text-gray-700 dark:text-gray-300 font-medium">Harga Beli</span>
                 </div>
             </div>
-            
+
             <canvas id="goldChart" aria-label="Grafik Riwayat Harga Emas (IDR per 0.01g)" role="img" class="p-4"></canvas>
         </div>
 
@@ -269,7 +284,7 @@
                 </svg>
                 Analitik Keuangan Emas
             </h3>
-            
+
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <!-- Sell Price Analytics Card -->
                 <div class="bg-gradient-to-br from-blue-50 to-blue-100/40 dark:from-gray-800 dark:to-blue-900/80 rounded-2xl shadow-sm p-6 border border-blue-200/30 dark:border-blue-900/20 transition-all hover:shadow-md hover:translate-y-[-2px]">
@@ -279,7 +294,7 @@
                         </svg>
                         Analitik Harga Jual
                     </h4>
-                    
+
                     <div class="space-y-4">
                         <div class="flex justify-between items-center p-3 rounded-lg border border-blue-200 dark:border-blue-700 shadow-sm">
                             <span class="text-gray-600 dark:text-gray-300">Tertinggi Periode</span> 
@@ -303,7 +318,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Buy Price Analytics Card -->
                 <div class="bg-gradient-to-br from-green-50 to-green-100/40 dark:from-gray-800 dark:to-green-900/80 rounded-2xl shadow-sm p-6 border border-green-200/30 dark:border-green-900/20 transition-all hover:shadow-md hover:translate-y-[-2px]">
                     <h4 class="text-lg font-semibold text-green-600 dark:text-green-400 mb-5 flex items-center">
@@ -312,7 +327,7 @@
                         </svg>
                         Analitik Harga Beli
                     </h4>
-                    
+
                     <div class="space-y-4">
                         <div class="flex justify-between items-center p-3 rounded-lg border border-green-200 dark:border-green-700 shadow-sm">
                             <span class="text-gray-600 dark:text-gray-300">Tertinggi Periode</span>
@@ -337,7 +352,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- Information notice -->
             <div class="mt-8 text-sm text-center text-gray-500 dark:text-gray-400">
                 <p>Data harga emas diperbarui secara berkala. SMA = Simple Moving Average (Rata-rata Bergerak Sederhana)</p>
@@ -358,12 +373,12 @@
     // Initialize the chart with financial features
     function initChart() {
         const ctx = document.getElementById('goldChart').getContext('2d');
-        
+
         const isDarkMode = document.documentElement.classList.contains('dark');
         const textColor = isDarkMode ? '#F3F4F6' : '#111827';
         const gridColor = isDarkMode ? 'rgba(243, 244, 246, 0.1)' : 'rgba(17, 24, 39, 0.1)';
         const crosshairColor = isDarkMode ? 'rgba(255, 255, 255, 0.5)' : 'rgba(0, 0, 0, 0.5)';
-        
+
         // Register the crosshair plugin
         const crosshairPlugin = {
             id: 'crosshair',
@@ -374,7 +389,7 @@
                     const x = activePoint.element.x;
                     const topY = chart.scales.y.top;
                     const bottomY = chart.scales.y.bottom;
-                    
+
                     ctx.save();
                     ctx.beginPath();
                     ctx.moveTo(x, topY);
@@ -382,12 +397,12 @@
                     ctx.lineWidth = 1;
                     ctx.strokeStyle = crosshairColor;
                     ctx.stroke();
-                    
+
                     // Also draw horizontal line for the y value
                     const y = activePoint.element.y;
                     const leftX = chart.scales.x.left;
                     const rightX = chart.scales.x.right;
-                    
+
                     ctx.beginPath();
                     ctx.moveTo(leftX, y);
                     ctx.lineTo(rightX, y);
@@ -396,9 +411,9 @@
                 }
             }
         };
-        
+
         Chart.register(crosshairPlugin);
-        
+
         goldChart = new Chart(ctx, {
             type: 'line',
             data: {
@@ -535,15 +550,15 @@
 
         return goldChart;
     }
-    
+
     // Function to update chart theme colors when switching between light/dark mode
     function updateChartTheme() {
         if (!goldChart) return;
-        
+
         const isDarkMode = document.documentElement.classList.contains('dark');
         const textColor = isDarkMode ? '#F3F4F6' : '#111827';
         const gridColor = isDarkMode ? 'rgba(243, 244, 246, 0.1)' : 'rgba(17, 24, 39, 0.1)';
-        
+
         goldChart.options.scales.y.ticks.color = textColor;
         goldChart.options.scales.y.grid.color = gridColor;
         goldChart.options.scales.y.title.color = textColor;
@@ -552,14 +567,14 @@
         goldChart.options.plugins.tooltip.titleColor = isDarkMode ? '#F3F4F6' : '#111827';
         goldChart.options.plugins.tooltip.bodyColor = isDarkMode ? '#F3F4F6' : '#111827';
         goldChart.options.plugins.tooltip.borderColor = isDarkMode ? '#374151' : '#E5E7EB';
-        
+
         if (goldChart.options.plugins.title) {
             goldChart.options.plugins.title.color = textColor;
         }
-        
+
         goldChart.update();
     }
-    
+
     // Function to process data based on interval type
     function processDataByIntervalType(priceList, intervalType) {
         // Adjust prices first
@@ -573,7 +588,7 @@
         const sortedData = [...adjustedPriceList].sort((a, b) => 
             new Date(a.lastUpdate) - new Date(b.lastUpdate)
         );
-        
+
         if (intervalType === 'daily' || sortedData.length <= 7) {
             // Return daily data with formatted dates including year
             return {
@@ -594,14 +609,14 @@
         } else if (intervalType === 'weekly') {
             // Group by week with full date format
             const weeklyData = {};
-            
+
             sortedData.forEach(item => {
                 const date = new Date(item.lastUpdate);
                 // Get first day of week (Sunday)
                 const firstDay = new Date(date);
                 firstDay.setDate(date.getDate() - date.getDay());
                 const weekKey = `${firstDay.getFullYear()}-${String(firstDay.getMonth() + 1).padStart(2, '0')}-${String(firstDay.getDate()).padStart(2, '0')}`;
-                
+
                 if (!weeklyData[weekKey]) {
                     weeklyData[weekKey] = {
                         date: firstDay,
@@ -611,14 +626,14 @@
                         rawDates: []
                     };
                 }
-                
+
                 weeklyData[weekKey].sellPrices.push(item.hargaJual); // Raw price
                 weeklyData[weekKey].buyPrices.push(item.hargaBeli); // Raw price
                 weeklyData[weekKey].rawDates.push(item.lastUpdate);
             });
-            
+
             const weeks = Object.values(weeklyData).sort((a, b) => a.date - b.date);
-            
+
             return {
                 dates: weeks.map(week => {
                     // Use Luxon for reliable formatting if available, fallback otherwise
@@ -642,11 +657,11 @@
         } else if (intervalType === 'monthly') {
             // Group by month with full date format including year
             const monthlyData = {};
-            
+
             sortedData.forEach(item => {
                 const date = new Date(item.lastUpdate);
                 const monthKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
-                
+
                 if (!monthlyData[monthKey]) {
                     monthlyData[monthKey] = {
                         date: new Date(date.getFullYear(), date.getMonth(), 1),
@@ -656,14 +671,14 @@
                         rawDates: []
                     };
                 }
-                
+
                 monthlyData[monthKey].sellPrices.push(item.hargaJual); // Raw price
                 monthlyData[monthKey].buyPrices.push(item.hargaBeli); // Raw price
                 monthlyData[monthKey].rawDates.push(item.lastUpdate);
             });
-            
+
             const months = Object.values(monthlyData).sort((a, b) => a.date - b.date);
-            
+
             return {
                 dates: months.map(month => {
                      // Use Luxon for reliable formatting if available, fallback otherwise
@@ -687,11 +702,11 @@
         } else if (intervalType === 'yearly') {
             // Group by year
             const yearlyData = {};
-            
+
             sortedData.forEach(item => {
                 const date = new Date(item.lastUpdate);
                 const yearKey = `${date.getFullYear()}`;
-                
+
                 if (!yearlyData[yearKey]) {
                     yearlyData[yearKey] = {
                         date: new Date(date.getFullYear(), 0, 1), // Start of the year
@@ -701,14 +716,14 @@
                         rawDates: []
                     };
                 }
-                
+
                 yearlyData[yearKey].sellPrices.push(item.hargaJual); // Raw price
                 yearlyData[yearKey].buyPrices.push(item.hargaBeli); // Raw price
                 yearlyData[yearKey].rawDates.push(item.lastUpdate);
             });
-            
+
             const years = Object.values(yearlyData).sort((a, b) => a.date - b.date);
-            
+
             return {
                 dates: years.map(year => year.displayDate), // Year display is fine
                 rawDates: years.map(year => year.rawDates[0]), // Use the first date in each year
@@ -725,73 +740,106 @@
             };
         }
     }
-    
+
     // Calculate price change percentage comparing based on selected interval/range
     function calculatePriceChange(currentPrice, rawData, priceType) {
         // rawData now contains raw integer prices
         if (!rawData || rawData.length <= 1) {
             return { change: 0, isPositive: true, changeValue: 0 };
         }
-        
+
         // Get current (latest) price (raw integer)
         const latestPrice = currentPrice;
-        
+
         // Find the oldest price within our interval/range to compare with
         let oldestPrice;
-        
+
         if (rawData.length > 0) {
             oldestPrice = (priceType === 'sell' ? rawData[0].hargaJual : rawData[0].hargaBeli);
         } else {
             return { change: 0, isPositive: true, changeValue: 0 };
         }
-        
+
         // Calculate the change
         const changeValue = latestPrice - oldestPrice;
         const changePercent = oldestPrice !== 0 ? (changeValue / oldestPrice) * 100 : 0;
-        
+
         return {
             change: Math.abs(changePercent).toFixed(2),
             isPositive: changeValue >= 0,
             changeValue: changeValue
         };
     }
-    
+
     // Function to update latest price indicators
     function updateLatestPriceIndicators(processedData) {
         // processedData contains raw integer prices
+        const latestBuyEl = document.getElementById('latest-buy');
+        const latestSellEl = document.getElementById('latest-sell');
+        const changeBuyEl = document.getElementById('change-buy');
+        const changeSellEl = document.getElementById('change-sell');
+        const startBuyEl = document.getElementById('start-buy');
+        const startSellEl = document.getElementById('start-sell');
+
+        // Helper to format currency
+        const formatCurrency = (value) => {
+            if (value === null || isNaN(value)) return '-';
+            return value.toLocaleString('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0, maximumFractionDigits: 0 }).replace('Rp', '').trim();
+        };
+
         if (!processedData || !processedData.rawData || processedData.rawData.length === 0) {
              // Clear indicators if no data
-            document.getElementById('latest-buy').textContent = '-';
-            document.getElementById('latest-sell').textContent = '-';
-            document.getElementById('change-buy').textContent = '';
-            document.getElementById('change-sell').textContent = '';
+            latestBuyEl.textContent = '-';
+            latestSellEl.textContent = '-';
+            changeBuyEl.textContent = '';
+            changeSellEl.textContent = '';
+            startBuyEl.textContent = '-';
+            startSellEl.textContent = '-';
             return;
         }
-        
+
         // Get latest buy and sell prices (raw integers)
         const latestRawEntry = processedData.rawData[processedData.rawData.length - 1];
         const latestBuyPrice = latestRawEntry.hargaBeli; // Raw price
         const latestSellPrice = latestRawEntry.hargaJual; // Raw price
-        
-        // Calculate price changes based on raw prices
-        const buyChange = calculatePriceChange(latestBuyPrice, processedData.rawData, 'buy');
-        const sellChange = calculatePriceChange(latestSellPrice, processedData.rawData, 'sell');
-        
-        // Update the DOM elements, formatting for IDR
-        document.getElementById('latest-buy').textContent = latestBuyPrice.toLocaleString('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0, maximumFractionDigits: 0 }).replace('Rp', '').trim();
-        document.getElementById('latest-sell').textContent = latestSellPrice.toLocaleString('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0, maximumFractionDigits: 0 }).replace('Rp', '').trim();
-        
-        const buyChangeEl = document.getElementById('change-buy');
-        // Format change value as currency
-        const buyChangeValueFormatted = Math.abs(buyChange.changeValue).toLocaleString('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0, maximumFractionDigits: 0 }).replace('Rp', '').trim();
-        buyChangeEl.textContent = `${buyChange.isPositive ? '↑' : '↓'} ${buyChangeValueFormatted} (${buyChange.change}%)`;
-        buyChangeEl.className = `text-xs font-medium ml-1 ${buyChange.isPositive ? 'text-green-500' : 'text-red-500'}`; // Adjusted size
-        
-        const sellChangeEl = document.getElementById('change-sell');
-        // Format change value as currency
-        const sellChangeValueFormatted = Math.abs(sellChange.changeValue).toLocaleString('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0, maximumFractionDigits: 0 }).replace('Rp', '').trim();
-        sellChangeEl.textContent = `${sellChange.isPositive ? '↑' : '↓'} ${sellChangeValueFormatted} (${sellChange.change}%)`;
-        sellChangeEl.className = `text-xs font-medium ml-1 ${sellChange.isPositive ? 'text-green-500' : 'text-red-500'}`; // Adjusted size
+
+        // Get starting buy and sell prices if available
+        let startBuyPrice = null;
+        let startSellPrice = null;
+        if (processedData.rawData.length > 0) { // Check if there's at least one entry
+            const startRawEntry = processedData.rawData[0];
+            startBuyPrice = startRawEntry.hargaBeli;
+            startSellPrice = startRawEntry.hargaJual;
+        }
+
+        // Calculate price changes based on raw prices (only if more than 1 data point)
+        let buyChange = { change: 0, isPositive: true, changeValue: 0 };
+        let sellChange = { change: 0, isPositive: true, changeValue: 0 };
+        if (processedData.rawData.length > 1) {
+            buyChange = calculatePriceChange(latestBuyPrice, processedData.rawData, 'buy');
+            sellChange = calculatePriceChange(latestSellPrice, processedData.rawData, 'sell');
+        }
+
+        // Update the DOM elements
+        latestBuyEl.textContent = formatCurrency(latestBuyPrice);
+        latestSellEl.textContent = formatCurrency(latestSellPrice);
+        startBuyEl.textContent = formatCurrency(startBuyPrice);
+        startSellEl.textContent = formatCurrency(startSellPrice);
+
+        // Update change indicators only if there's a change to show (more than 1 data point)
+        if (processedData.rawData.length > 1) {
+            const buyChangeValueFormatted = formatCurrency(Math.abs(buyChange.changeValue));
+            changeBuyEl.textContent = `${buyChange.isPositive ? '↑' : '↓'} ${buyChangeValueFormatted} (${buyChange.change}%)`;
+            changeBuyEl.className = `text-xs font-medium ml-1 ${buyChange.isPositive ? 'text-green-500' : 'text-red-500'}`;
+
+            const sellChangeValueFormatted = formatCurrency(Math.abs(sellChange.changeValue));
+            changeSellEl.textContent = `${sellChange.isPositive ? '↑' : '↓'} ${sellChangeValueFormatted} (${sellChange.change}%)`;
+            changeSellEl.className = `text-xs font-medium ml-1 ${sellChange.isPositive ? 'text-green-500' : 'text-red-500'}`;
+        } else {
+            // Clear change indicators if only one data point
+            changeBuyEl.textContent = '';
+            changeSellEl.textContent = '';
+        }
     }
 
     // --- Helper Functions for Analytics ---
@@ -886,7 +934,7 @@
         analyticsElements.buySma200.textContent = formatCurrency(buySma200);
         analyticsElements.buyVolatility.textContent = formatNumber(buyVolatility);
     }
-    
+
     // Function to fetch gold price data and update the chart
     function fetchGoldData(period, intervalType) { // Changed 'interval' parameter to 'period'
         document.getElementById('loading').classList.remove('hidden');
@@ -992,7 +1040,7 @@
         // Consider adding specific formatting for 'yearly' if needed, though current logic might suffice.
         if (!dateStr) return '';
         const date = new Date(dateStr);
-        
+
         if (includeYear) {
             return date.toLocaleDateString('id-ID', { 
                 year: 'numeric', 
@@ -1006,7 +1054,7 @@
             });
         }
     }
-    
+
     // Set up event listeners
     document.addEventListener('DOMContentLoaded', function() {
         // Initialize the chart
