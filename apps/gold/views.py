@@ -1,11 +1,12 @@
 import json
 import requests
 from django.shortcuts import render
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse # Import HttpResponse
 from django.views.decorators.cache import cache_page
 from django.conf import settings
 from datetime import datetime, date, timedelta # Import date, timedelta
 from dateutil.relativedelta import relativedelta # Import relativedelta
+from django.urls import reverse # Keep this import if used elsewhere, otherwise can remove
 
 def get_latest_gold_data():
     """
@@ -122,3 +123,18 @@ def gold_price_data(request):
             "error": "Error decoding API response",
             "message": "Invalid JSON received from external API"
         }, status=500)
+
+def robots_txt(request):
+    """
+    Generate and serve the robots.txt file content.
+    """
+    # Use the expected path directly instead of reversing the name
+    # This avoids the NoReverseMatch error if the sitemap URL isn't configured yet.
+    sitemap_path = '/sitemap.xml'
+    sitemap_url = request.build_absolute_uri(sitemap_path)
+    lines = [
+        "User-agent: *",
+        "Allow: /",
+        f"Sitemap: {sitemap_url}",
+    ]
+    return HttpResponse("\n".join(lines), content_type="text/plain")
