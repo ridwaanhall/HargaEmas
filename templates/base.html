@@ -8,6 +8,9 @@
     <meta name="description" content="{% block meta_description %}Lacak harga emas terbaru dalam Rupiah Indonesia (IDR) dengan grafik data historis dan analisis.{% endblock %}"> {# Updated default description #}
     <meta name="keywords" content="{% block meta_keywords %}harga emas, pelacak emas, harga komoditas, logam mulia, keuangan, investasi, emas IDR, Rupiah{% endblock %}"> {# Updated default keywords #}
     <link rel="canonical" href="{% block canonical_url %}{{ request.build_absolute_uri }}{% endblock %}">
+    <!-- RSS Feed Link -->
+    <link rel="alternate" type="application/rss+xml" title="Harga Emas Indonesia Terbaru" href="{% url 'latest_gold_feed' %}">
+
 
     <title>{% block title %}Pelacak Harga Emas (IDR){% endblock %}</title> {# Updated default title #}
 
