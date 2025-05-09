@@ -51,7 +51,7 @@
         "@type": "Dataset",
         "mainEntityOfPage": "{{ request.build_absolute_uri }}",
         "name": "Data Historis & Terkini Harga Emas Harian Indonesia (IDR per 0.01g)",
-        "description": "Data time series harian terkini untuk harga jual dan beli emas di Indonesia dalam Rupiah (IDR) per 0.01 gram. Data mencakup periode historis yang signifikan dan diperbarui secara berkala.",
+        "description": "Data time series harian terkini untuk Harga Beli dan beli emas di Indonesia dalam Rupiah (IDR) per 0.01 gram. Data mencakup periode historis yang signifikan dan diperbarui secara berkala.",
         "keywords": ["harga emas", "IDR", "data historis", "harga komoditas", "keuangan", "emas Antam", "emas Pegadaian", "Rupiah", "harga emas harian", "harga emas terkini", "Indonesia"],
         "license": "https://creativecommons.org/licenses/by/4.0/",
         "creator": {
@@ -67,13 +67,13 @@
         "variableMeasured": [
             {
                 "@type": "PropertyValue",
-                "name": "Harga Jual Emas Harian",
+                "name": "Harga Beli Emas Harian",
                 "propertyID": "goldSellPriceDaily",
                 "unitText": "IDR per 0.01g"
             },
             {
                 "@type": "PropertyValue",
-                "name": "Harga Beli Emas Harian",
+                "name": "Harga Jual Emas Harian",
                 "propertyID": "goldBuyPriceDaily",
                 "unitText": "IDR per 0.01g"
             }
@@ -89,7 +89,7 @@
             "exampleOfWork": {
                 "@type": "Observation",
                 "name": "Data Harga Emas Pegadaian Terkini (per 0.01g)",
-                "description": "Observasi harga jual dan beli emas terakhir yang tercatat di Indonesia.",
+                "description": "Observasi Harga Beli dan beli emas terakhir yang tercatat di Indonesia.",
                 "observedNode": {
                     "@type": "Place",
                     "name": "Indonesia"
@@ -98,14 +98,14 @@
                     {
                         "@type": "PropertyValue",
                         "propertyID": "goldSellPriceDaily",
-                        "name": "Harga Jual Emas Harian",
+                        "name": "Harga Beli Emas Harian",
                         "unitText": "IDR per 0.01g",
                         "value": "{{ latest_gold_data.hargaJual }}"
                     },
                     {
                         "@type": "PropertyValue",
                         "propertyID": "goldBuyPriceDaily",
-                        "name": "Harga Beli Emas Harian",
+                        "name": "Harga Jual Emas Harian",
                         "unitText": "IDR per 0.01g",
                         "value": "{{ latest_gold_data.hargaBeli }}"
                     }
@@ -131,7 +131,7 @@
         <!-- Latest Price Indicators -->
         <div class="flex flex-wrap gap-8 mt-6">
             <div class="bg-white/90 dark:bg-gray-800/80 backdrop-blur-sm rounded-lg px-5 py-4 shadow-sm">
-                <span class="block text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">Harga Jual Terbaru</span>
+                <span class="block text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">Harga Beli Terbaru</span>
                 <div class="flex items-baseline">
                     <span id="latest-sell" class="text-2xl font-bold text-blue-600 dark:text-blue-400">-</span>
                     <span id="change-sell" class="text-sm font-medium ml-2"></span>
@@ -139,7 +139,7 @@
             </div>
 
             <div class="bg-white/90 dark:bg-gray-800/80 backdrop-blur-sm rounded-lg px-5 py-4 shadow-sm">
-                <span class="block text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">Harga Beli Terbaru</span>
+                <span class="block text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">Harga Jual Terbaru</span>
                 <div class="flex items-baseline">
                     <span id="latest-buy" class="text-2xl font-bold text-green-600 dark:text-green-400">-</span>
                     <span id="change-buy" class="text-sm font-medium ml-2"></span>
@@ -148,14 +148,14 @@
 
             <!-- Starting Prices for the Period -->
             <div class="bg-white/90 dark:bg-gray-800/80 backdrop-blur-sm rounded-lg px-5 py-4 shadow-sm">
-                <span class="block text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">Harga Jual Awal Periode</span>
+                <span class="block text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">Harga Beli Awal Periode</span>
                 <div class="flex items-baseline">
                     <span id="start-sell" class="text-xl font-semibold text-gray-700 dark:text-gray-300">-</span>
                 </div>
             </div>
 
             <div class="bg-white/90 dark:bg-gray-800/80 backdrop-blur-sm rounded-lg px-5 py-4 shadow-sm">
-                <span class="block text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">Harga Beli Awal Periode</span>
+                <span class="block text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">Harga Jual Awal Periode</span>
                 <div class="flex items-baseline">
                     <span id="start-buy" class="text-xl font-semibold text-gray-700 dark:text-gray-300">-</span>
                 </div>
@@ -265,11 +265,11 @@
             <div class="absolute top-3 right-3 z-10 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm px-3 py-2 rounded-lg shadow-sm flex gap-4">
                 <div class="flex items-center">
                     <span class="inline-block w-3 h-3 bg-blue-500 rounded-full mr-2"></span>
-                    <span class="text-xs text-gray-700 dark:text-gray-300 font-medium">Harga Jual</span>
+                    <span class="text-xs text-gray-700 dark:text-gray-300 font-medium">Harga Beli</span>
                 </div>
                 <div class="flex items-center">
                     <span class="inline-block w-3 h-3 bg-green-500 rounded-full mr-2"></span>
-                    <span class="text-xs text-gray-700 dark:text-gray-300 font-medium">Harga Beli</span>
+                    <span class="text-xs text-gray-700 dark:text-gray-300 font-medium">Harga Jual</span>
                 </div>
             </div>
 
@@ -292,7 +292,7 @@
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
                         </svg>
-                        Analitik Harga Jual
+                        Analitik Harga Beli
                     </h4>
 
                     <div class="space-y-3"> {# Adjusted spacing #}
@@ -325,7 +325,7 @@
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6" />
                         </svg>
-                        Analitik Harga Beli
+                        Analitik Harga Jual
                     </h4>
 
                     <div class="space-y-3"> {# Adjusted spacing #}
@@ -420,7 +420,7 @@
                 labels: [],
                 datasets: [
                     {
-                        label: 'Harga Jual', // Updated label
+                        label: 'Harga Beli', // Updated label
                         data: [],
                         borderColor: '#3B82F6',
                         backgroundColor: 'rgba(59, 130, 246, 0.1)',
@@ -437,7 +437,7 @@
                         pointHitRadius: 10,
                     },
                     {
-                        label: 'Harga Beli', // Updated label
+                        label: 'Harga Jual', // Updated label
                         data: [],
                         borderColor: '#10B981',
                         backgroundColor: 'rgba(16, 185, 129, 0.1)',
