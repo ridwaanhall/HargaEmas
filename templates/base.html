@@ -30,7 +30,8 @@
     <meta name="twitter:image" content="{% block twitter_image %}{# Add URL to a default preview image here #}{% endblock %}">
     {# <meta name="twitter:site" content="@YourTwitterHandle"> #}
 
-    <script src="https://cdn.tailwindcss.com"></script>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/global.css' %}">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
