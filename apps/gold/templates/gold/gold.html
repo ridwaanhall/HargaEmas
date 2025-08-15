@@ -122,63 +122,63 @@
 {% block header_title %}Harga Emas Hari Ini (IDR/0.01g){% endblock %} {# Updated header #}
 
 {% block content %}
-<div class="max-w-6xl mx-auto bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden mb-8">
+<div class="max-w-6xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden mb-8">
     <!-- Header Section with Elegant Gradient -->
-    <div class="bg-gradient-to-r from-blue-50 via-indigo-50 to-purple-50 dark:from-gray-800 dark:via-gray-700 dark:to-gray-800 px-6 py-8 border-b border-gray-100 dark:border-gray-700">
-        <h2 class="text-3xl font-bold text-gray-800 dark:text-white tracking-tight mb-2">Harga Emas Indonesia</h2>
-        <p class="text-gray-600 dark:text-gray-300">IDR per 0.01 gram &bull; Diperbarui secara berkala</p>
+    <div class="bg-gradient-to-r from-blue-50 via-indigo-50 to-purple-50 px-6 py-8 border-b border-gray-100">
+        <h2 class="text-3xl font-bold text-gray-800 tracking-tight mb-2">Harga Emas Indonesia</h2>
+        <p class="text-gray-600">IDR per 0.01 gram &bull; Diperbarui secara berkala</p>
 
         <!-- Latest Price Indicators -->
         <div class="flex flex-wrap gap-8 mt-6">
-            <div class="bg-white/90 dark:bg-gray-800/80 backdrop-blur-sm rounded-lg px-5 py-4 shadow-sm">
-                <span class="block text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">Harga Beli Terbaru</span>
+            <div class="bg-white/90 backdrop-blur-sm rounded-lg px-5 py-4 shadow-sm">
+                <span class="block text-sm font-medium text-gray-500 mb-1">Harga Beli Terbaru</span>
                 <div class="flex items-baseline">
-                    <span id="latest-sell" class="text-2xl font-bold text-blue-600 dark:text-blue-400">-</span>
+                    <span id="latest-sell" class="text-2xl font-bold text-blue-600">-</span>
                     <span id="change-sell" class="text-sm font-medium ml-2"></span>
                 </div>
             </div>
 
-            <div class="bg-white/90 dark:bg-gray-800/80 backdrop-blur-sm rounded-lg px-5 py-4 shadow-sm">
-                <span class="block text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">Harga Jual Terbaru</span>
+            <div class="bg-white/90 backdrop-blur-sm rounded-lg px-5 py-4 shadow-sm">
+                <span class="block text-sm font-medium text-gray-500 mb-1">Harga Jual Terbaru</span>
                 <div class="flex items-baseline">
-                    <span id="latest-buy" class="text-2xl font-bold text-green-600 dark:text-green-400">-</span>
+                    <span id="latest-buy" class="text-2xl font-bold text-green-600">-</span>
                     <span id="change-buy" class="text-sm font-medium ml-2"></span>
                 </div>
             </div>
 
             <!-- Starting Prices for the Period -->
-            <div class="bg-white/90 dark:bg-gray-800/80 backdrop-blur-sm rounded-lg px-5 py-4 shadow-sm">
-                <span class="block text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">Harga Beli Awal Periode</span>
+            <div class="bg-white/90 backdrop-blur-sm rounded-lg px-5 py-4 shadow-sm">
+                <span class="block text-sm font-medium text-gray-500 mb-1">Harga Beli Awal Periode</span>
                 <div class="flex items-baseline">
-                    <span id="start-sell" class="text-xl font-semibold text-gray-700 dark:text-gray-300">-</span>
+                    <span id="start-sell" class="text-xl font-semibold text-gray-700">-</span>
                 </div>
             </div>
 
-            <div class="bg-white/90 dark:bg-gray-800/80 backdrop-blur-sm rounded-lg px-5 py-4 shadow-sm">
-                <span class="block text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">Harga Jual Awal Periode</span>
+            <div class="bg-white/90 backdrop-blur-sm rounded-lg px-5 py-4 shadow-sm">
+                <span class="block text-sm font-medium text-gray-500 mb-1">Harga Jual Awal Periode</span>
                 <div class="flex items-baseline">
-                    <span id="start-buy" class="text-xl font-semibold text-gray-700 dark:text-gray-300">-</span>
+                    <span id="start-buy" class="text-xl font-semibold text-gray-700">-</span>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Controls Section -->
-    <div class="bg-white dark:bg-gray-800 p-6">
+    <div class="bg-white p-6">
         <div class="mb-8 space-y-6"> {# Increased spacing between control groups #}
             <div class="flex flex-wrap justify-between items-center gap-4">
-                <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-200">Pengaturan Grafik</h3>
+                <h3 class="text-lg font-semibold text-gray-700">Pengaturan Grafik</h3>
 
                 <!-- Loading indicator - Floating -->
-                <div id="loading" class="hidden px-4 py-2 bg-white dark:bg-gray-700 rounded-full shadow-md flex items-center space-x-2 text-sm">
-                    <div class="animate-spin rounded-full h-4 w-4 border-b-2 border-primary-500"></div>
-                    <span class="text-gray-600 dark:text-gray-200">Memuat data...</span>
+                <div id="loading" class="hidden px-4 py-2 bg-white rounded-full shadow-md flex items-center space-x-2 text-sm">
+                    <div class="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-500"></div>
+                    <span class="text-gray-600">Memuat data...</span>
                 </div>
             </div>
 
             <!-- Time Range Selector -->
             <div class="pt-2"> {# Removed background, border, shadow, rounding. Added top padding #}
-                <h4 class="text-sm font-medium text-gray-600 dark:text-gray-300 mb-3 flex items-center">
+                <h4 class="text-sm font-medium text-gray-600 mb-3 flex items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                     </svg>
@@ -186,17 +186,17 @@
                 </h4>
 
                 <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-7 gap-2 mb-3">
-                    <button class="interval-btn transition-all hover:scale-105 px-3 py-2 rounded-lg text-sm font-medium bg-gray-200 dark:bg-gray-600 hover:bg-primary-500 hover:text-white dark:text-gray-200 dark:hover:bg-primary-600" data-period="7d">7 Hari</button>
-                    <button class="interval-btn transition-all hover:scale-105 px-3 py-2 rounded-lg text-sm font-medium bg-primary-500 text-white dark:bg-primary-600 hover:bg-primary-600 dark:hover:bg-primary-700" data-period="1m">1 Bulan</button>
-                    <button class="interval-btn transition-all hover:scale-105 px-3 py-2 rounded-lg text-sm font-medium bg-gray-200 dark:bg-gray-600 hover:bg-primary-500 hover:text-white dark:text-gray-200 dark:hover:bg-primary-600" data-period="3m">3 Bulan</button>
-                    <button class="interval-btn transition-all hover:scale-105 px-3 py-2 rounded-lg text-sm font-medium bg-gray-200 dark:bg-gray-600 hover:bg-primary-500 hover:text-white dark:text-gray-200 dark:hover:bg-primary-600" data-period="6m">6 Bulan</button>
-                    <button class="interval-btn transition-all hover:scale-105 px-3 py-2 rounded-lg text-sm font-medium bg-gray-200 dark:bg-gray-600 hover:bg-primary-500 hover:text-white dark:text-gray-200 dark:hover:bg-primary-600" data-period="1y">1 Tahun</button>
-                    <button class="interval-btn transition-all hover:scale-105 px-3 py-2 rounded-lg text-sm font-medium bg-gray-200 dark:bg-gray-600 hover:bg-primary-500 hover:text-white dark:text-gray-200 dark:hover:bg-primary-600" data-period="2y">2 Tahun</button>
-                    <button class="interval-btn transition-all hover:scale-105 px-3 py-2 rounded-lg text-sm font-medium bg-gray-200 dark:bg-gray-600 hover:bg-primary-500 hover:text-white dark:text-gray-200 dark:hover:bg-primary-600" data-period="5y">5 Tahun</button>
+                    <button class="interval-btn transition-all hover:scale-105 px-3 py-2 rounded-lg text-sm font-medium bg-gray-200 hover:bg-blue-500 hover:text-white text-gray-800" data-period="7d">7 Hari</button>
+                    <button class="interval-btn transition-all hover:scale-105 px-3 py-2 rounded-lg text-sm font-medium bg-blue-500 text-white hover:bg-blue-600" data-period="1m">1 Bulan</button>
+                    <button class="interval-btn transition-all hover:scale-105 px-3 py-2 rounded-lg text-sm font-medium bg-gray-200 hover:bg-blue-500 hover:text-white text-gray-800" data-period="3m">3 Bulan</button>
+                    <button class="interval-btn transition-all hover:scale-105 px-3 py-2 rounded-lg text-sm font-medium bg-gray-200 hover:bg-blue-500 hover:text-white text-gray-800" data-period="6m">6 Bulan</button>
+                    <button class="interval-btn transition-all hover:scale-105 px-3 py-2 rounded-lg text-sm font-medium bg-gray-200 hover:bg-blue-500 hover:text-white text-gray-800" data-period="1y">1 Tahun</button>
+                    <button class="interval-btn transition-all hover:scale-105 px-3 py-2 rounded-lg text-sm font-medium bg-gray-200 hover:bg-blue-500 hover:text-white text-gray-800" data-period="2y">2 Tahun</button>
+                    <button class="interval-btn transition-all hover:scale-105 px-3 py-2 rounded-lg text-sm font-medium bg-gray-200 hover:bg-blue-500 hover:text-white text-gray-800" data-period="5y">5 Tahun</button>
                 </div>
 
                 <div class="flex justify-end">
-                    <button class="group flex items-center text-xs text-primary-600 hover:text-primary-800 dark:text-primary-400 dark:hover:text-primary-300" type="button" data-dropdown-toggle="extended-time-dropdown">
+                    <button class="group flex items-center text-xs text-blue-600 hover:text-blue-800" type="button" data-dropdown-toggle="extended-time-dropdown">
                         Rentang waktu lainnya
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1 group-hover:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
@@ -205,24 +205,24 @@
                 </div>
 
                 <!-- Extended Time Range Dropdown (hidden by default) -->
-                <div id="extended-time-dropdown" class="hidden bg-white dark:bg-gray-700 shadow-lg rounded-lg p-2 z-10">
+                <div id="extended-time-dropdown" class="hidden bg-white shadow-lg rounded-lg p-2 z-10">
                     <div class="grid grid-cols-3 gap-2">
-                        <button class="interval-btn px-3 py-2 rounded-lg text-sm font-medium bg-gray-200 dark:bg-gray-600 hover:bg-primary-500 hover:text-white dark:text-gray-200 dark:hover:bg-primary-600" data-period="3y">3 Tahun</button>
-                        <button class="interval-btn px-3 py-2 rounded-lg text-sm font-medium bg-gray-200 dark:bg-gray-600 hover:bg-primary-500 hover:text-white dark:text-gray-200 dark:hover:bg-primary-600" data-period="4y">4 Tahun</button>
-                        <button class="interval-btn px-3 py-2 rounded-lg text-sm font-medium bg-gray-200 dark:bg-gray-600 hover:bg-primary-500 hover:text-white dark:text-gray-200 dark:hover:bg-primary-600" data-period="6y">6 Tahun</button>
-                        <button class="interval-btn px-3 py-2 rounded-lg text-sm font-medium bg-gray-200 dark:bg-gray-600 hover:bg-primary-500 hover:text-white dark:text-gray-200 dark:hover:bg-primary-600" data-period="7y">7 Tahun</button>
-                        <button class="interval-btn px-3 py-2 rounded-lg text-sm font-medium bg-gray-200 dark:bg-gray-600 hover:bg-primary-500 hover:text-white dark:text-gray-200 dark:hover:bg-primary-600" data-period="8y">8 Tahun</button>
-                        <button class="interval-btn px-3 py-2 rounded-lg text-sm font-medium bg-gray-200 dark:bg-gray-600 hover:bg-primary-500 hover:text-white dark:text-gray-200 dark:hover:bg-primary-600" data-period="9y">9 Tahun</button>
-                        <button class="interval-btn px-3 py-2 rounded-lg text-sm font-medium bg-gray-200 dark:bg-gray-600 hover:bg-primary-500 hover:text-white dark:text-gray-200 dark:hover:bg-primary-600" data-period="10y">10 Tahun</button>
-                        <button class="interval-btn px-3 py-2 rounded-lg text-sm font-medium bg-gray-200 dark:bg-gray-600 hover:bg-primary-500 hover:text-white dark:text-gray-200 dark:hover:bg-primary-600" data-period="15y">15 Tahun</button>
-                        <button class="interval-btn px-3 py-2 rounded-lg text-sm font-medium bg-gray-200 dark:bg-gray-600 hover:bg-primary-500 hover:text-white dark:text-gray-200 dark:hover:bg-primary-600" data-period="20y">20 Tahun</button>
+                        <button class="interval-btn px-3 py-2 rounded-lg text-sm font-medium bg-gray-200 hover:bg-blue-500 hover:text-white text-gray-800" data-period="3y">3 Tahun</button>
+                        <button class="interval-btn px-3 py-2 rounded-lg text-sm font-medium bg-gray-200 hover:bg-blue-500 hover:text-white text-gray-800" data-period="4y">4 Tahun</button>
+                        <button class="interval-btn px-3 py-2 rounded-lg text-sm font-medium bg-gray-200 hover:bg-blue-500 hover:text-white text-gray-800" data-period="6y">6 Tahun</button>
+                        <button class="interval-btn px-3 py-2 rounded-lg text-sm font-medium bg-gray-200 hover:bg-blue-500 hover:text-white text-gray-800" data-period="7y">7 Tahun</button>
+                        <button class="interval-btn px-3 py-2 rounded-lg text-sm font-medium bg-gray-200 hover:bg-blue-500 hover:text-white text-gray-800" data-period="8y">8 Tahun</button>
+                        <button class="interval-btn px-3 py-2 rounded-lg text-sm font-medium bg-gray-200 hover:bg-blue-500 hover:text-white text-gray-800" data-period="9y">9 Tahun</button>
+                        <button class="interval-btn px-3 py-2 rounded-lg text-sm font-medium bg-gray-200 hover:bg-blue-500 hover:text-white text-gray-800" data-period="10y">10 Tahun</button>
+                        <button class="interval-btn px-3 py-2 rounded-lg text-sm font-medium bg-gray-200 hover:bg-blue-500 hover:text-white text-gray-800" data-period="15y">15 Tahun</button>
+                        <button class="interval-btn px-3 py-2 rounded-lg text-sm font-medium bg-gray-200 hover:bg-blue-500 hover:text-white text-gray-800" data-period="20y">20 Tahun</button>
                     </div>
                 </div>
             </div>
 
             <!-- Display Type Selector -->
             <div class="pt-2"> {# Removed background, border, shadow, rounding. Added top padding #}
-                <h4 class="text-sm font-medium text-gray-600 dark:text-gray-300 mb-3 flex items-center">
+                <h4 class="text-sm font-medium text-gray-600 mb-3 flex items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                     </svg>
@@ -230,25 +230,25 @@
                 </h4>
 
                 <div class="grid grid-cols-4 gap-2">
-                    <button class="interval-type-btn transition-all hover:scale-105 px-3 py-2 rounded-lg text-sm font-medium flex flex-col items-center justify-center bg-primary-500 text-white dark:bg-primary-600 hover:bg-primary-600 dark:hover:bg-primary-700" data-type="daily">
+                    <button class="interval-type-btn transition-all hover:scale-105 px-3 py-2 rounded-lg text-sm font-medium flex flex-col items-center justify-center bg-blue-500 text-white hover:bg-blue-600" data-type="daily">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                         </svg>
                         Harian
                     </button>
-                    <button class="interval-type-btn transition-all hover:scale-105 px-3 py-2 rounded-lg text-sm font-medium flex flex-col items-center justify-center bg-gray-200 dark:bg-gray-600 hover:bg-primary-500 hover:text-white dark:text-gray-200 dark:hover:bg-primary-600" data-type="weekly">
+                    <button class="interval-type-btn transition-all hover:scale-105 px-3 py-2 rounded-lg text-sm font-medium flex flex-col items-center justify-center bg-gray-200 hover:bg-blue-500 hover:text-white text-gray-800" data-type="weekly">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                         </svg>
                         Mingguan
                     </button>
-                    <button class="interval-type-btn transition-all hover:scale-105 px-3 py-2 rounded-lg text-sm font-medium flex flex-col items-center justify-center bg-gray-200 dark:bg-gray-600 hover:bg-primary-500 hover:text-white dark:text-gray-200 dark:hover:bg-primary-600" data-type="monthly">
+                    <button class="interval-type-btn transition-all hover:scale-105 px-3 py-2 rounded-lg text-sm font-medium flex flex-col items-center justify-center bg-gray-200 hover:bg-blue-500 hover:text-white text-gray-800" data-type="monthly">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                         </svg>
                         Bulanan
                     </button>
-                    <button class="interval-type-btn transition-all hover:scale-105 px-3 py-2 rounded-lg text-sm font-medium flex flex-col items-center justify-center bg-gray-200 dark:bg-gray-600 hover:bg-primary-500 hover:text-white dark:text-gray-200 dark:hover:bg-primary-600" data-type="yearly">
+                    <button class="interval-type-btn transition-all hover:scale-105 px-3 py-2 rounded-lg text-sm font-medium flex flex-col items-center justify-center bg-gray-200 hover:bg-blue-500 hover:text-white text-gray-800" data-type="yearly">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 10a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1v-4z" />
@@ -262,14 +262,14 @@
         <!-- Chart Area with Legend -->
         <div class="relative overflow-hidden transition-all" style="height: 35vh;"> {# Removed background, border, shadow, rounding #}
             <!-- Chart Legend -->
-            <div class="absolute top-3 right-3 z-10 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm px-3 py-2 rounded-lg shadow-sm flex gap-4">
+            <div class="absolute top-3 right-3 z-10 bg-white/90  backdrop-blur-sm px-3 py-2 rounded-lg shadow-sm flex gap-4">
                 <div class="flex items-center">
                     <span class="inline-block w-3 h-3 bg-blue-500 rounded-full mr-2"></span>
-                    <span class="text-xs text-gray-700 dark:text-gray-300 font-medium">Harga Beli</span>
+                    <span class="text-xs text-gray-700  font-medium">Harga Beli</span>
                 </div>
                 <div class="flex items-center">
                     <span class="inline-block w-3 h-3 bg-green-500 rounded-full mr-2"></span>
-                    <span class="text-xs text-gray-700 dark:text-gray-300 font-medium">Harga Jual</span>
+                    <span class="text-xs text-gray-700  font-medium">Harga Jual</span>
                 </div>
             </div>
 
@@ -277,9 +277,9 @@
         </div>
 
         <!-- Financial Analytics Section -->
-        <div class="mt-10 pt-8 border-t border-gray-200 dark:border-gray-700">
-            <h3 class="text-xl font-bold mb-6 text-gray-800 dark:text-white flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-primary-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <div class="mt-10 pt-8 border-t border-gray-200 ">
+            <h3 class="text-xl font-bold mb-6 text-gray-800  flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" />
                 </svg>
                 Analitik Keuangan Emas
@@ -288,7 +288,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <!-- Sell Price Analytics -->
                 <div class="p-6"> {# Removed card styling (bg, border, shadow, rounding) #}
-                    <h4 class="text-lg font-semibold text-blue-600 dark:text-blue-400 mb-5 flex items-center">
+                    <h4 class="text-lg font-semibold text-blue-600  mb-5 flex items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
                         </svg>
@@ -297,31 +297,31 @@
 
                     <div class="space-y-3"> {# Adjusted spacing #}
                         <div class="flex justify-between items-center py-1"> {# Removed card styling, added simple padding #}
-                            <span class="text-gray-600 dark:text-gray-300">Tertinggi Periode</span>
-                            <strong id="sell-high" class="text-black dark:text-white font-medium">-</strong>
+                            <span class="text-gray-600 ">Tertinggi Periode</span>
+                            <strong id="sell-high" class="text-black  font-medium">-</strong>
                         </div>
                         <div class="flex justify-between items-center py-1"> {# Removed card styling, added simple padding #}
-                            <span class="text-gray-600 dark:text-gray-300">Terendah Periode</span>
-                            <strong id="sell-low" class="text-black dark:text-white font-medium">-</strong>
+                            <span class="text-gray-600 ">Terendah Periode</span>
+                            <strong id="sell-low" class="text-black  font-medium">-</strong>
                         </div>
                         <div class="flex justify-between items-center py-1"> {# Removed card styling, added simple padding #}
-                            <span class="text-gray-600 dark:text-gray-300">SMA 50-Periode</span>
-                            <strong id="sell-sma50" class="text-black dark:text-white font-medium">-</strong>
+                            <span class="text-gray-600 ">SMA 50-Periode</span>
+                            <strong id="sell-sma50" class="text-black  font-medium">-</strong>
                         </div>
                         <div class="flex justify-between items-center py-1"> {# Removed card styling, added simple padding #}
-                            <span class="text-gray-600 dark:text-gray-300">SMA 200-Periode</span>
-                            <strong id="sell-sma200" class="text-black dark:text-white font-medium">-</strong>
+                            <span class="text-gray-600 ">SMA 200-Periode</span>
+                            <strong id="sell-sma200" class="text-black  font-medium">-</strong>
                         </div>
                         <div class="flex justify-between items-center py-1"> {# Removed card styling, added simple padding #}
-                            <span class="text-gray-600 dark:text-gray-300">Volatilitas</span>
-                            <strong id="sell-volatility" class="text-black dark:text-white font-medium">-</strong>
+                            <span class="text-gray-600 ">Volatilitas</span>
+                            <strong id="sell-volatility" class="text-black  font-medium">-</strong>
                         </div>
                     </div>
                 </div>
 
                 <!-- Buy Price Analytics -->
                 <div class="p-6"> {# Removed card styling (bg, border, shadow, rounding) #}
-                    <h4 class="text-lg font-semibold text-green-600 dark:text-green-400 mb-5 flex items-center">
+                    <h4 class="text-lg font-semibold text-green-600  mb-5 flex items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6" />
                         </svg>
@@ -330,31 +330,31 @@
 
                     <div class="space-y-3"> {# Adjusted spacing #}
                         <div class="flex justify-between items-center py-1"> {# Removed card styling, added simple padding #}
-                            <span class="text-gray-600 dark:text-gray-300">Tertinggi Periode</span>
-                            <strong id="buy-high" class="text-black dark:text-white font-medium">-</strong>
+                            <span class="text-gray-600 ">Tertinggi Periode</span>
+                            <strong id="buy-high" class="text-black  font-medium">-</strong>
                         </div>
                         <div class="flex justify-between items-center py-1"> {# Removed card styling, added simple padding #}
-                            <span class="text-gray-600 dark:text-gray-300">Terendah Periode</span>
-                            <strong id="buy-low" class="text-black dark:text-white font-medium">-</strong>
+                            <span class="text-gray-600 ">Terendah Periode</span>
+                            <strong id="buy-low" class="text-black  font-medium">-</strong>
                         </div>
                         <div class="flex justify-between items-center py-1"> {# Removed card styling, added simple padding #}
-                            <span class="text-gray-600 dark:text-gray-300">SMA 50-Periode</span>
-                            <strong id="buy-sma50" class="text-black dark:text-white font-medium">-</strong>
+                            <span class="text-gray-600 ">SMA 50-Periode</span>
+                            <strong id="buy-sma50" class="text-black  font-medium">-</strong>
                         </div>
                         <div class="flex justify-between items-center py-1"> {# Removed card styling, added simple padding #}
-                            <span class="text-gray-600 dark:text-gray-300">SMA 200-Periode</span>
-                            <strong id="buy-sma200" class="text-black dark:text-white font-medium">-</strong>
+                            <span class="text-gray-600 ">SMA 200-Periode</span>
+                            <strong id="buy-sma200" class="text-black  font-medium">-</strong>
                         </div>
                         <div class="flex justify-between items-center py-1"> {# Removed card styling, added simple padding #}
-                            <span class="text-gray-600 dark:text-gray-300">Volatilitas</span>
-                            <strong id="buy-volatility" class="text-black dark:text-white font-medium">-</strong>
+                            <span class="text-gray-600 ">Volatilitas</span>
+                            <strong id="buy-volatility" class="text-black  font-medium">-</strong>
                         </div>
                     </div>
                 </div>
             </div>
 
             <!-- Information notice -->
-            <div class="mt-8 text-sm text-center text-gray-500 dark:text-gray-400">
+            <div class="mt-8 text-sm text-center text-gray-500 ">
                 <p>Data harga emas diperbarui secara berkala. SMA = Simple Moving Average (Rata-rata Bergerak Sederhana)</p>
             </div>
         </div>
@@ -374,10 +374,10 @@
     function initChart() {
         const ctx = document.getElementById('goldChart').getContext('2d');
 
-        const isDarkMode = document.documentElement.classList.contains('dark');
-        const textColor = isDarkMode ? '#F3F4F6' : '#111827';
-        const gridColor = isDarkMode ? 'rgba(243, 244, 246, 0.1)' : 'rgba(17, 24, 39, 0.1)';
-        const crosshairColor = isDarkMode ? 'rgba(255, 255, 255, 0.5)' : 'rgba(0, 0, 0, 0.5)';
+        // Light theme colors
+        const textColor = '#111827';
+        const gridColor = 'rgba(17, 24, 39, 0.1)';
+        const crosshairColor = 'rgba(0, 0, 0, 0.5)';
 
         // Register the crosshair plugin
         const crosshairPlugin = {
@@ -495,10 +495,10 @@
                         }
                     },
                     tooltip: {
-                        backgroundColor: isDarkMode ? 'rgba(17, 24, 39, 0.8)' : 'rgba(255, 255, 255, 0.8)',
-                        titleColor: isDarkMode ? '#F3F4F6' : '#111827',
-                        bodyColor: isDarkMode ? '#F3F4F6' : '#111827',
-                        borderColor: isDarkMode ? '#374151' : '#E5E7EB',
+                        backgroundColor: 'rgba(255, 255, 255, 0.8)',
+                        titleColor: '#111827',
+                        bodyColor: '#111827',
+                        borderColor: '#E5E7EB',
                         borderWidth: 1,
                         padding: 10,
                         displayColors: true,
@@ -549,30 +549,6 @@
         });
 
         return goldChart;
-    }
-
-    // Function to update chart theme colors when switching between light/dark mode
-    function updateChartTheme() {
-        if (!goldChart) return;
-
-        const isDarkMode = document.documentElement.classList.contains('dark');
-        const textColor = isDarkMode ? '#F3F4F6' : '#111827';
-        const gridColor = isDarkMode ? 'rgba(243, 244, 246, 0.1)' : 'rgba(17, 24, 39, 0.1)';
-
-        goldChart.options.scales.y.ticks.color = textColor;
-        goldChart.options.scales.y.grid.color = gridColor;
-        goldChart.options.scales.y.title.color = textColor;
-        goldChart.options.plugins.legend.labels.color = textColor;
-        goldChart.options.plugins.tooltip.backgroundColor = isDarkMode ? 'rgba(17, 24, 39, 0.8)' : 'rgba(255, 255, 255, 0.8)';
-        goldChart.options.plugins.tooltip.titleColor = isDarkMode ? '#F3F4F6' : '#111827';
-        goldChart.options.plugins.tooltip.bodyColor = isDarkMode ? '#F3F4F6' : '#111827';
-        goldChart.options.plugins.tooltip.borderColor = isDarkMode ? '#374151' : '#E5E7EB';
-
-        if (goldChart.options.plugins.title) {
-            goldChart.options.plugins.title.color = textColor;
-        }
-
-        goldChart.update();
     }
 
     // Function to process data based on interval type
@@ -1085,12 +1061,12 @@
             button.addEventListener('click', function() {
                 // Update active button styling
                 intervalButtons.forEach(btn => {
-                    btn.classList.remove('bg-primary-500', 'text-white', 'dark:bg-primary-600');
-                    btn.classList.add('bg-gray-200', 'dark:bg-gray-600', 'dark:text-gray-300');
+                    btn.classList.remove('bg-blue-500', 'text-white');
+                    btn.classList.add('bg-gray-200', 'text-gray-800');
                 });
 
-                this.classList.remove('bg-gray-200', 'dark:bg-gray-600', 'dark:text-gray-300');
-                this.classList.add('bg-primary-500', 'text-white', 'dark:bg-primary-600');
+                this.classList.remove('bg-gray-200', 'text-gray-800');
+                this.classList.add('bg-blue-500', 'text-white');
 
                 // Get period and fetch data
                 const period = this.dataset.period; // Use dataset.period
@@ -1104,24 +1080,18 @@
             button.addEventListener('click', function() {
                 // Update active button styling
                 intervalTypeButtons.forEach(btn => {
-                    btn.classList.remove('bg-primary-500', 'text-white', 'dark:bg-primary-600');
-                    btn.classList.add('bg-gray-200', 'dark:bg-gray-600', 'dark:text-gray-300');
+                    btn.classList.remove('bg-blue-500', 'text-white');
+                    btn.classList.add('bg-gray-200', 'text-gray-800');
                 });
 
-                this.classList.remove('bg-gray-200', 'dark:bg-gray-600', 'dark:text-gray-300');
-                this.classList.add('bg-primary-500', 'text-white', 'dark:bg-primary-600');
+                this.classList.remove('bg-gray-200', 'text-gray-800');
+                this.classList.add('bg-blue-500', 'text-white');
 
                 // Get interval type and fetch data using current period settings
                 const type = this.dataset.type;
                 fetchGoldData(currentPeriod, type); // Pass currentPeriod
             });
         });
-
-        // Add listener for theme changes to update chart colors
-        const observer = new MutationObserver(updateChartTheme);
-        observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
-        // Initial theme check in case theme is set on load
-        updateChartTheme();
     });
 </script>
 {% endblock %}
