@@ -28,7 +28,6 @@ sitemaps = {
 }
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
     path('', include('apps.gold.urls')), # Assuming gold app is at the root or adjust prefix
     # Add the sitemap URL pattern at the root
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
