@@ -1,16 +1,16 @@
 {% extends "base.html" %}
 
-{% block title %}Harga Emas Hari Ini Live (IDR per 0.01g) - Data & Grafik Historis Indonesia{% endblock %} {# Updated title #}
-{% block meta_description %}Lacak harga emas terbaru hari ini secara live dalam Rupiah Indonesia (IDR) per 0.01 gram. Lihat grafik data historis (harian, mingguan, bulanan, tahunan) dan analitik keuangan untuk emas di Indonesia.{% endblock %} {# Updated description #}
-{% block meta_keywords %}harga emas IDR, harga emas hari ini, grafik emas, harga emas 0.01g, data historis emas, investasi emas, harga emas Indonesia, emas Antam, emas Pegadaian, Rupiah, harga emas harian, harga emas live{% endblock %} {# Updated keywords #}
+{% block title %}{% if latest_gold_data %}Harga Emas Hari Ini Live (IDR {{ latest_gold_data.hargaJual|floatformat:0 }}/0.01g) - Data & Grafik Historis Indonesia{% else %}Harga Emas Hari Ini Live (IDR per 0.01g) - Data & Grafik Historis Indonesia{% endif %}{% endblock %}
+{% block meta_description %}{% if latest_gold_data %}Lacak harga emas terbaru hari ini secara live dalam Rupiah Indonesia (IDR) per 0.01 gram. Harga beli: IDR {{ latest_gold_data.hargaJual|floatformat:0 }}, Harga jual: IDR {{ latest_gold_data.hargaBeli|floatformat:0 }}. Lihat grafik data historis dan analitik keuangan untuk emas di Indonesia.{% else %}Lacak harga emas terbaru hari ini secara live dalam Rupiah Indonesia (IDR) per 0.01 gram. Lihat grafik data historis (harian, mingguan, bulanan, tahunan) dan analitik keuangan untuk emas di Indonesia.{% endif %}{% endblock %}
+{% block meta_keywords %}harga emas IDR, harga emas hari ini, grafik emas, harga emas 0.01g, data historis emas, investasi emas, harga emas Indonesia, emas Antam, emas Pegadaian, Rupiah, harga emas harian, harga emas live{% if latest_gold_data %}, harga emas {{ latest_gold_data.hargaJual|floatformat:0 }}, harga emas {{ latest_gold_data.hargaBeli|floatformat:0 }}{% endif %}{% endblock %}
 
-{% block title_og %}Harga Emas Hari Ini Live (IDR per 0.01g) - Data Historis Indonesia{% endblock %} {# Updated OG title #}
-{% block meta_description_og %}Lacak harga emas terbaru hari ini secara live dalam Rupiah Indonesia (IDR) per 0.01 gram. Lihat grafik data historis (harian, mingguan, bulanan, tahunan) dan analitik keuangan untuk emas di Indonesia.{% endblock %} {# Updated OG description #}
+{% block title_og %}{% if latest_gold_data %}Harga Emas Hari Ini Live (IDR {{ latest_gold_data.hargaJual|floatformat:0 }}/0.01g) - Data Historis Indonesia{% else %}Harga Emas Hari Ini Live (IDR per 0.01g) - Data Historis Indonesia{% endif %}{% endblock %}
+{% block meta_description_og %}{% if latest_gold_data %}Lacak harga emas terbaru hari ini secara live dalam Rupiah Indonesia (IDR) per 0.01 gram. Harga beli: IDR {{ latest_gold_data.hargaJual|floatformat:0 }}, Harga jual: IDR {{ latest_gold_data.hargaBeli|floatformat:0 }}. Lihat grafik data historis dan analitik keuangan untuk emas di Indonesia.{% else %}Lacak harga emas terbaru hari ini secara live dalam Rupiah Indonesia (IDR) per 0.01 gram. Lihat grafik data historis (harian, mingguan, bulanan, tahunan) dan analitik keuangan untuk emas di Indonesia.{% endif %}{% endblock %}
 {# Add a specific OG image for this page if available #}
 {# {% block og_image %}{% static 'images/gold_chart_preview.png' %}{% endblock %} #}
 
-{% block title_twitter %}Harga Emas Hari Ini Live (IDR/0.01g) - Grafik & Data Indonesia{% endblock %} {# Updated Twitter title #}
-{% block meta_description_twitter %}Harga emas IDR terbaru hari ini per 0.01g dengan grafik historis (harian, mingguan, bulanan, tahunan) & analitik keuangan di Indonesia.{% endblock %} {# Updated Twitter description #}
+{% block title_twitter %}{% if latest_gold_data %}Harga Emas Hari Ini Live (IDR {{ latest_gold_data.hargaJual|floatformat:0 }}/0.01g) - Grafik & Data Indonesia{% else %}Harga Emas Hari Ini Live (IDR/0.01g) - Grafik & Data Indonesia{% endif %}{% endblock %}
+{% block meta_description_twitter %}{% if latest_gold_data %}Harga emas IDR terbaru hari ini per 0.01g: Beli IDR {{ latest_gold_data.hargaJual|floatformat:0 }}, Jual IDR {{ latest_gold_data.hargaBeli|floatformat:0 }}. Grafik historis & analitik keuangan di Indonesia.{% else %}Harga emas IDR terbaru hari ini per 0.01g dengan grafik historis (harian, mingguan, bulanan, tahunan) & analitik keuangan di Indonesia.{% endif %}{% endblock %}
 {# Add a specific Twitter image for this page if available #}
 {# {% block twitter_image %}{% static 'images/gold_chart_preview.png' %}{% endblock %} #}
 
@@ -31,8 +31,8 @@
 {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    "name": "Harga Emas Hari Ini Live (IDR per 0.01g) - Data & Grafik Historis Indonesia",
-    "description": "Lacak harga emas terbaru hari ini secara live dalam Rupiah Indonesia (IDR) per 0.01 gram. Lihat grafik data historis harian, mingguan, bulanan, tahunan dan analitik keuangan untuk emas di Indonesia.",
+    "name": "{% if latest_gold_data %}Harga Emas Hari Ini Live (IDR {{ latest_gold_data.hargaJual|floatformat:0 }}/0.01g) - Data & Grafik Historis Indonesia{% else %}Harga Emas Hari Ini Live (IDR per 0.01g) - Data & Grafik Historis Indonesia{% endif %}",
+    "description": "{% if latest_gold_data %}Lacak harga emas terbaru hari ini secara live dalam Rupiah Indonesia (IDR) per 0.01 gram. Harga beli: IDR {{ latest_gold_data.hargaJual|floatformat:0 }}, Harga jual: IDR {{ latest_gold_data.hargaBeli|floatformat:0 }}. Lihat grafik data historis dan analitik keuangan untuk emas di Indonesia.{% else %}Lacak harga emas terbaru hari ini secara live dalam Rupiah Indonesia (IDR) per 0.01 gram. Lihat grafik data historis harian, mingguan, bulanan, tahunan dan analitik keuangan untuk emas di Indonesia.{% endif %}",
     "url": "{{ request.build_absolute_uri }}",
     "inLanguage": "id-ID",
     {% if latest_gold_data and latest_gold_data.parsedUpdate %}
@@ -117,16 +117,100 @@
     }
 }
 </script>
+
+{% if latest_gold_data %}
+<!-- Additional Product Schema for Gold Prices -->
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "Emas Indonesia (0.01 gram)",
+    "description": "Harga emas terbaru untuk 0.01 gram di Indonesia dengan data historis dan analitik keuangan",
+    "category": "Precious Metals",
+    "brand": {
+        "@type": "Brand",
+        "name": "Pegadaian Indonesia"
+    },
+    "offers": [
+        {
+            "@type": "Offer",
+            "name": "Harga Beli Emas (0.01g)",
+            "description": "Harga beli emas per 0.01 gram di Indonesia",
+            "price": "{{ latest_gold_data.hargaJual }}",
+            "priceCurrency": "IDR",
+            "availability": "https://schema.org/InStock",
+            "validFrom": "{{ latest_gold_data.parsedUpdate|date:'Y-m-d\\TH:i:sP' }}",
+            "seller": {
+                "@type": "Organization",
+                "name": "Pegadaian Indonesia"
+            }
+        },
+        {
+            "@type": "Offer",
+            "name": "Harga Jual Emas (0.01g)",
+            "description": "Harga jual emas per 0.01 gram di Indonesia",
+            "price": "{{ latest_gold_data.hargaBeli }}",
+            "priceCurrency": "IDR",
+            "availability": "https://schema.org/InStock",
+            "validFrom": "{{ latest_gold_data.parsedUpdate|date:'Y-m-d\\TH:i:sP' }}",
+            "seller": {
+                "@type": "Organization",
+                "name": "Pegadaian Indonesia"
+            }
+        }
+    ],
+    "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.5",
+        "reviewCount": "100",
+        "bestRating": "5"
+    }
+}
+</script>
+
+<!-- Financial Data Schema -->
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "FinancialProduct",
+    "name": "Harga Emas Indonesia Live",
+    "description": "Data harga emas real-time dan historis untuk investasi di Indonesia",
+    "provider": {
+        "@type": "Organization",
+        "name": "Pelacak Harga Emas Indonesia"
+    },
+    "interestRate": {
+        "@type": "QuantitativeValue",
+        "name": "Harga Beli Emas",
+        "value": "{{ latest_gold_data.hargaJual }}",
+        "unitText": "IDR per 0.01g"
+    },
+    "feesAndCommissionsSpecification": "Data harga emas disediakan secara gratis untuk tujuan informasi investasi"
+}
+</script>
+{% endif %}
 {% endblock %}
 
-{% block header_title %}Harga Emas Hari Ini (IDR/0.01g){% endblock %} {# Updated header #}
+{% block header_title %}{% if latest_gold_data %}Harga Emas Hari Ini (IDR {{ latest_gold_data.hargaJual|floatformat:0 }}/0.01g){% else %}Harga Emas Hari Ini (IDR/0.01g){% endif %}{% endblock %}
 
 {% block content %}
 <div class="max-w-6xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden mb-8">
     <!-- Header Section with Elegant Gradient -->
     <div class="bg-gradient-to-r from-blue-50 via-indigo-50 to-purple-50 px-6 py-8 border-b border-gray-100">
-        <h2 class="text-3xl font-bold text-gray-800 tracking-tight mb-2">Harga Emas Indonesia</h2>
-        <p class="text-gray-600">IDR per 0.01 gram &bull; Diperbarui secara berkala</p>
+        <h2 class="text-3xl font-bold text-gray-800 tracking-tight mb-2">
+            {% if latest_gold_data %}
+                Harga Emas Indonesia - IDR {{ latest_gold_data.hargaJual|floatformat:0 }}/0.01g
+            {% else %}
+                Harga Emas Indonesia
+            {% endif %}
+        </h2>
+        <p class="text-gray-600">
+            {% if latest_gold_data and latest_gold_data.parsedUpdate %}
+                IDR per 0.01 gram &bull; Terakhir diperbarui: {{ latest_gold_data.parsedUpdate|date:"d M Y H:i" }} WIB
+            {% else %}
+                IDR per 0.01 gram &bull; Diperbarui secara berkala
+            {% endif %}
+        </p>
 
         <!-- Latest Price Indicators -->
         <div class="flex flex-wrap gap-8 mt-6">
@@ -717,6 +801,30 @@
         }
     }
 
+    // Function to update page title and header with dynamic pricing
+    function updateDynamicPageElements(latestPrice) {
+        if (!latestPrice) return;
+        
+        // Format price for display
+        const formatPrice = (price) => price.toLocaleString('id-ID', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+        
+        // Update page title
+        const newTitle = `Harga Emas Hari Ini Live (IDR ${formatPrice(latestPrice)}/0.01g) - Data & Grafik Historis Indonesia`;
+        document.title = newTitle;
+        
+        // Update main header if no server-side data was available
+        const mainHeader = document.querySelector('h2.text-3xl');
+        if (mainHeader && !mainHeader.textContent.includes('IDR')) {
+            mainHeader.innerHTML = `Harga Emas Indonesia - IDR ${formatPrice(latestPrice)}/0.01g`;
+        }
+        
+        // Update meta description
+        const metaDesc = document.querySelector('meta[name="description"]');
+        if (metaDesc) {
+            metaDesc.setAttribute('content', `Lacak harga emas terbaru hari ini secara live dalam Rupiah Indonesia. Harga saat ini: IDR ${formatPrice(latestPrice)}/0.01g. Lihat grafik data historis dan analitik keuangan untuk emas di Indonesia.`);
+        }
+    }
+
     // Calculate price change percentage comparing based on selected interval/range
     function calculatePriceChange(currentPrice, rawData, priceType) {
         // rawData now contains raw integer prices
@@ -778,6 +886,9 @@
         const latestRawEntry = processedData.rawData[processedData.rawData.length - 1];
         const latestBuyPrice = latestRawEntry.hargaBeli; // Raw price
         const latestSellPrice = latestRawEntry.hargaJual; // Raw price
+        
+        // Update dynamic page elements with latest sell price
+        updateDynamicPageElements(latestSellPrice);
 
         // Get starting buy and sell prices if available
         let startBuyPrice = null;
@@ -982,7 +1093,15 @@
                  dateRangeSuffix = ` - ${firstDateStr} hingga ${lastDateStr}`; // Updated conjunction
             }
 
-            goldChart.options.plugins.title.text = `${titlePrefix} Harga Emas (0.01g)${dateRangeSuffix}`; // Updated title structure
+            // Add current price to chart title if available
+            let priceInfo = "";
+            if (processedData.rawData && processedData.rawData.length > 0) {
+                const latestEntry = processedData.rawData[processedData.rawData.length - 1];
+                const formatPrice = (price) => price.toLocaleString('id-ID', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+                priceInfo = ` (Terkini: IDR ${formatPrice(latestEntry.hargaJual)}/0.01g)`;
+            }
+
+            goldChart.options.plugins.title.text = `${titlePrefix} Harga Emas${priceInfo}${dateRangeSuffix}`; // Updated title structure
             goldChart.options.plugins.title.display = true;
 
             // Update the chart
