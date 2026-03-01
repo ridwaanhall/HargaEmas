@@ -1,7 +1,7 @@
 {
     "builds": [
         {
-            "src": "FINANCE/wsgi.py",
+            "src": "HargaEmas/wsgi.py",
             "use": "@vercel/python",
             "config": {
                 "maxLambdaSize": "15mb",
@@ -16,7 +16,7 @@
         },
         {
             "src": "/(.*)",
-            "dest": "FINANCE/wsgi.py"
+            "dest": "HargaEmas/wsgi.py"
         }
     ]
 }
