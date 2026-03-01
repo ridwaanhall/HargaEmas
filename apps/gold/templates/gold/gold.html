@@ -646,14 +646,14 @@
 
         // Sort by date ascending
         const sortedData = [...adjustedPriceList].sort((a, b) =>
-            new Date(a.lastUpdate) - new Date(b.lastUpdate)
+            new Date(a.lastUpdate.replace(' ', 'T')) - new Date(b.lastUpdate.replace(' ', 'T'))
         );
 
         if (intervalType === 'daily' || sortedData.length <= 7) {
             // Return daily data with formatted dates including year
             return {
                 dates: sortedData.map(item => {
-                    const date = new Date(item.lastUpdate);
+                    const date = new Date(item.lastUpdate.replace(' ', 'T'));
                     // Use Luxon for reliable formatting if available, fallback otherwise
                     if (typeof luxon !== 'undefined') {
                         return luxon.DateTime.fromJSDate(date).setLocale('id').toFormat('dd LLL yyyy');
@@ -661,7 +661,7 @@
                     return `${String(date.getDate()).padStart(2, '0')}/${String(date.getMonth() + 1).padStart(2, '0')}/${date.getFullYear()}`;
                 }),
                 rawDates: sortedData.map(item => item.lastUpdate),
-                fullDates: sortedData.map(item => new Date(item.lastUpdate)),
+                fullDates: sortedData.map(item => new Date(item.lastUpdate.replace(' ', 'T'))),
                 sellPrices: sortedData.map(item => item.hargaJual), // Use raw price
                 buyPrices: sortedData.map(item => item.hargaBeli),   // Use raw price
                 rawData: sortedData // Store the raw data
@@ -671,8 +671,7 @@
             const weeklyData = {};
 
             sortedData.forEach(item => {
-                const date = new Date(item.lastUpdate);
-                // Get first day of week (Sunday)
+                const date = new Date(item.lastUpdate.replace(' ', 'T'));
                 const firstDay = new Date(date);
                 firstDay.setDate(date.getDate() - date.getDay());
                 const weekKey = `${firstDay.getFullYear()}-${String(firstDay.getMonth() + 1).padStart(2, '0')}-${String(firstDay.getDate()).padStart(2, '0')}`;
@@ -719,7 +718,7 @@
             const monthlyData = {};
 
             sortedData.forEach(item => {
-                const date = new Date(item.lastUpdate);
+                const date = new Date(item.lastUpdate.replace(' ', 'T'));
                 const monthKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
 
                 if (!monthlyData[monthKey]) {
@@ -764,7 +763,7 @@
             const yearlyData = {};
 
             sortedData.forEach(item => {
-                const date = new Date(item.lastUpdate);
+                const date = new Date(item.lastUpdate.replace(' ', 'T'));
                 const yearKey = `${date.getFullYear()}`;
 
                 if (!yearlyData[yearKey]) {
@@ -1134,7 +1133,7 @@
     function formatDate(dateStr, includeYear = true) {
         // Consider adding specific formatting for 'yearly' if needed, though current logic might suffice.
         if (!dateStr) return '';
-        const date = new Date(dateStr);
+        const date = new Date(dateStr.replace(' ', 'T'));
 
         if (includeYear) {
             return date.toLocaleDateString('id-ID', {
